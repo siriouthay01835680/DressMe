@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DressMe</string>
+    <string name="DressMeTitle">Dress Me</string>
+    <string name="FallButton">Fall</string>
+    <string name="SpringButton">Spring</string>
+    <string name="SummerButton">Summer</string>
+    <string name="WinterButton">Winter</string>
+    <string name="SeasonPrompt">Pick a season</string>
+    <string name="GenerateButton">Generate</string>
+    <string name="SendScrapbookButton">Send to scrapbook</string>
+    <string name="RegenerateButton">Regenerate</string>
 </resources>
