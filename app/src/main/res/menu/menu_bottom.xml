@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--lecture 13 and 14-->
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/home_FILL0_wght400_GRAD0_opsz48" />
+    <item
+        android:id="@+id/closet"
+        android:title="@string/closet"
+        android:icon="@drawable/dresser_FILL0_wght400_GRAD0_opsz48" />
+    <item
+        android:id="@+id/scrapbook"
+        android:title="@string/scrapbook"
+        android:icon="@drawable/menu_book_FILL0_wght400_GRAD0_opsz48" />
+    <item
+        android:id="@+id/donate"
+        android:title="Donate"
+        android:icon="@drawable/volunteer_activism_FILL0_wght400_GRAD0_opsz48" />
+</menu>
