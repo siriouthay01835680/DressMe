@@ -7,10 +7,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class HomeScreen extends Fragment {
 
@@ -23,14 +25,25 @@ public class HomeScreen extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_screen, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_home_screen,
+                container, false);
+        Button dressBtn = view.findViewById(R.id.dressMeButton);
+        System.out.println("here");
+        dressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_homeScreen_to_dressMe);
+            }
+        });
+        Button uploadBtn = view.findViewById(R.id.uploadButton);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_homeScreen_to_upload);
+            }
+        });
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HomeScreenViewModel.class);
-        // TODO: Use the ViewModel
+        return view;
     }
 
 }
