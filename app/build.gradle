@@ -8,6 +8,7 @@ android {
     lintOptions {
         disable 'RestrictedApi'
     }
+    compileSdk 33
     defaultConfig {
         applicationId "com.mobileapp.dressme"
         minSdk 21
