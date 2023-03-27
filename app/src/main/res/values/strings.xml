@@ -12,4 +12,8 @@
     <string name="drsme">DressMe</string>
     <string name="upload">Upload</string>
     <string name="dress_me">Dress Me</string>
+    <string name="send_to_scrapbook">Send to Scrapbook</string>
+    <string name="home">Home</string>
+    <string name="closet">Closet</string>
+    <string name="scrapbook">Scrapbook</string>
 </resources>
