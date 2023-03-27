@@ -1,13 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DressMe">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/DressMeTitle"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SeasonPrompt"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <RadioButton
+        android:id="@+id/FallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="55dp"
+        android:text="@string/FallButton" />
+
+    <RadioButton
+        android:id="@+id/SpringButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/SpringButton" />
+
+    <RadioButton
+        android:id="@+id/SummerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/SummerButton" />
+
+    <RadioButton
+        android:id="@+id/WinterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="145dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/WinterButton" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="70dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/GenerateButton" />
+
+    <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_marginTop="190dp"/>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/SendScrapbookButton" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:text="@string/RegenerateButton" />
 
 </FrameLayout>
