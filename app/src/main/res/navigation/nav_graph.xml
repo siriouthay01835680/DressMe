@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/closet"
+        android:name="com.mobileapp.dressme.Closet"
+        android:label="fragment_closet"
+        tools:layout="@layout/fragment_closet" />
+    <fragment
+        android:id="@+id/dressMe"
+        android:name="com.mobileapp.dressme.DressMe"
+        android:label="fragment_dress_me"
+        tools:layout="@layout/fragment_dress_me" >
+        <action
+            android:id="@+id/action_dressMe_to_scrapbook"
+            app:destination="@id/scrapbook" />
+    </fragment>
+    <fragment
+        android:id="@+id/donate"
+        android:name="com.mobileapp.dressme.Donate"
+        android:label="Donate" />
+    <fragment
+        android:id="@+id/drawingBoard"
+        android:name="com.mobileapp.dressme.DrawingBoard"
+        android:label="fragment_drawing_board"
+        tools:layout="@layout/fragment_drawing_board" />
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.mobileapp.dressme.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_dressMe2"
+            app:destination="@id/dressMe" />
+        <action
+            android:id="@+id/action_homeScreen_to_upload2"
+            app:destination="@id/upload" />
+    </fragment>
+    <fragment
+        android:id="@+id/scrapbook"
+        android:name="com.mobileapp.dressme.Scrapbook"
+        android:label="fragment_scrapbook"
+        tools:layout="@layout/fragment_scrapbook" />
+    <fragment
+        android:id="@+id/upload"
+        android:name="com.mobileapp.dressme.Upload"
+        android:label="fragment_upload"
+        tools:layout="@layout/fragment_upload" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.mobileapp.dressme.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>
