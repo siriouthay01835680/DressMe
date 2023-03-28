@@ -15,14 +15,14 @@
         android:layout_weight="0"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+<!--    <androidx.camera.view.PreviewView-->
+<!--        android:id="@+id/previewView"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

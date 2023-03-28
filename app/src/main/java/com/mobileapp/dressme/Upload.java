@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
+//import androidx.camera.core.CameraSelector;
+//import androidx.camera.core.ImageCapture;
+//import androidx.camera.core.Preview;
+//import androidx.camera.lifecycle.ProcessCameraProvider;
+//import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.common.util.concurrent.ListenableFuture;
+//import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
 
@@ -32,28 +32,28 @@ public class Upload extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_upload, container, false);
-        PreviewView viewFinder = view.findViewById(R.id.viewFinder);
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
-
-        cameraProviderFuture.addListener(() -> {
-            // Camera provider is now ready to be used
-            try {
-                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-
-                // Bind the Preview to the lifecycle
-                Preview preview = new Preview.Builder().build();
-                preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
-
-                // Select back camera as a default
-                CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
-
-                ImageCapture imageCapture =
-                        new ImageCapture.Builder()
-                                .setTargetRotation(view.getDisplay().getRotation())
-                                .build();
-
-                cameraProvider.bindToLifecycle(getViewLifecycleOwner(), cameraSelector, imageCapture, preview);
-
+//        PreviewView viewFinder = view.findViewById(R.id.viewFinder);
+//        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
+//
+//        cameraProviderFuture.addListener(() -> {
+//            // Camera provider is now ready to be used
+//            try {
+//                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+//
+//                // Bind the Preview to the lifecycle
+//                Preview preview = new Preview.Builder().build();
+//                preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
+//
+//                // Select back camera as a default
+//                CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
+//
+//                ImageCapture imageCapture =
+//                        new ImageCapture.Builder()
+//                                .setTargetRotation(view.getDisplay().getRotation())
+//                                .build();
+//
+//                cameraProvider.bindToLifecycle(getViewLifecycleOwner(), cameraSelector, imageCapture, preview);
+//
 
                 //  androidx.camera.core.ImageCapture imageCapture = new androidx.camera.core.ImageCapture.Builder().build();
                 // Create an image capture use case and set defaults
@@ -67,10 +67,10 @@ public class Upload extends Fragment {
 
                 // Attach the use cases to the camera with the same lifecycle owner
                 // Camera camera = cameraProvider.bindToLifecycle(getViewLifecycleOwner(), cameraSelector, preview, imageCapture);
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }, ContextCompat.getMainExecutor(requireContext()));
+//            } catch (ExecutionException | InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }, ContextCompat.getMainExecutor(requireContext()));
 
 
        // return inflater.inflate(R.layout.fragment_upload, container, false);
