@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/closet">
+    app:startDestination="@id/homeScreen">
 
     <fragment
         android:id="@+id/closet"
@@ -14,7 +14,11 @@
         android:id="@+id/dressMe"
         android:name="com.mobileapp.dressme.DressMe"
         android:label="fragment_dress_me"
-        tools:layout="@layout/fragment_dress_me" />
+        tools:layout="@layout/fragment_dress_me" >
+        <action
+            android:id="@+id/action_dressMe_to_scrapbook"
+            app:destination="@id/scrapbook" />
+    </fragment>
     <fragment
         android:id="@+id/donate"
         android:name="com.mobileapp.dressme.Donate"
@@ -28,7 +32,14 @@
         android:id="@+id/homeScreen"
         android:name="com.mobileapp.dressme.HomeScreen"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_dressMe2"
+            app:destination="@id/dressMe" />
+        <action
+            android:id="@+id/action_homeScreen_to_upload2"
+            app:destination="@id/upload" />
+    </fragment>
     <fragment
         android:id="@+id/scrapbook"
         android:name="com.mobileapp.dressme.Scrapbook"

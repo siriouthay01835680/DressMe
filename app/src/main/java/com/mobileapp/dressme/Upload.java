@@ -82,5 +82,6 @@ public class Upload extends Fragment {
         mViewModel = new ViewModelProvider(this).get(UploadViewModel.class);
         // TODO: Use the ViewModel
     } */
- return view;
+// return view;
+        return inflater.inflate(R.layout.fragment_upload, container, false);
 }}
