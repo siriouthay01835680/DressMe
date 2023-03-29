@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_closet_to_drawingBoard"
             app:destination="@id/drawingBoard" />
+        <action
+            android:id="@+id/action_closet_to_scrapbook"
+            app:destination="@id/scrapbook" />
     </fragment>
     <fragment
         android:id="@+id/dressMe"
@@ -26,7 +29,11 @@
     <fragment
         android:id="@+id/donate"
         android:name="com.mobileapp.dressme.Donate"
-        android:label="Donate" />
+        android:label="Donate" >
+        <action
+            android:id="@+id/action_donate_to_closet"
+            app:destination="@id/closet" />
+    </fragment>
     <fragment
         android:id="@+id/drawingBoard"
         android:name="com.mobileapp.dressme.DrawingBoard"
