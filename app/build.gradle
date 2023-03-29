@@ -3,13 +3,13 @@ plugins {
 }
 android {
     namespace 'com.mobileapp.dressme'
-    compileSdk 32
+//    compileSdk 32
     compileSdk 33
 
     defaultConfig {
         applicationId "com.mobileapp.dressme"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
     def nav_version = "2.5.3"
 
     implementation "androidx.navigation:navigation-fragment:$nav_version"
