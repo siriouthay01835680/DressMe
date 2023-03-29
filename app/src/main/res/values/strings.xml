@@ -17,4 +17,5 @@
     <string name="closet">Closet</string>
     <string name="scrapbook">Scrapbook</string>
     <string name="upload_screen">Upload Screen</string>
+    <string name="takePicture">Take Picture</string>
 </resources>
