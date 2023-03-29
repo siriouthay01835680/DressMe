@@ -9,7 +9,11 @@
         android:id="@+id/closet"
         android:name="com.mobileapp.dressme.Closet"
         android:label="fragment_closet"
-        tools:layout="@layout/fragment_closet" />
+        tools:layout="@layout/fragment_closet" >
+        <action
+            android:id="@+id/action_closet_to_drawingBoard"
+            app:destination="@id/drawingBoard" />
+    </fragment>
     <fragment
         android:id="@+id/dressMe"
         android:name="com.mobileapp.dressme.DressMe"
@@ -27,7 +31,11 @@
         android:id="@+id/drawingBoard"
         android:name="com.mobileapp.dressme.DrawingBoard"
         android:label="fragment_drawing_board"
-        tools:layout="@layout/fragment_drawing_board" />
+        tools:layout="@layout/fragment_drawing_board" >
+        <action
+            android:id="@+id/action_drawingBoard_to_scrapbook"
+            app:destination="@id/scrapbook" />
+    </fragment>
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.mobileapp.dressme.HomeScreen"
