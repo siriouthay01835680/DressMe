@@ -17,6 +17,7 @@
     <string name="closet">Closet</string>
     <string name="scrapbook">Scrapbook</string>
     <string name="upload_screen">Upload Screen</string>
+    <string name="takePicture">Take Picture</string>
     <string name="send_to_drawing_board">Send to Drawing Board</string>
     <string name="delete_item">Delete item</string>
     <string name="go_back">Go Back</string>

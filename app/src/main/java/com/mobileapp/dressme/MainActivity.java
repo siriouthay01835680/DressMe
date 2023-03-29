@@ -1,6 +1,15 @@
 package com.mobileapp.dressme;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -20,9 +29,9 @@ import android.widget.PopupWindow;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
+    private static final String[] CAMERA_PERMISSION = new String[]{android.Manifest.permission.CAMERA};
+    private static final int CAMERA_REQUEST_CODE = 10;
 
     MaterialToolbar toolbar;
     @Override
@@ -31,38 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-      /*
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-
-            super.onCreate(savedInstanceState);
-            cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-
-        cameraProviderFuture.addListener(() -> {
-            try {
-                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                bindPreview(cameraProvider);
-            } catch (ExecutionException | InterruptedException e) {
-
-            }
-         }, ContextCompat.getMainExecutor(this));
-            //cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-
-
-        setContentView(R.layout.activity_main);
-    } */
-
-/*    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-        Preview preview = new Preview.Builder().build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build();
-
-        PreviewView previewView = null;
-
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-
-        Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview);
-    } */
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -77,6 +54,37 @@ public class MainActivity extends AppCompatActivity {
         //bottom nav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        Button enableCamera = findViewById(R.id.button2);
+        enableCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hasCameraPermission()) {
+                    enableCamera();
+                } else {
+                    requestPermission();
+                }
+            }
+        });
+    }
+    private boolean hasCameraPermission() {
+        return ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(
+                this,
+                CAMERA_PERMISSION,
+                CAMERA_REQUEST_CODE
+        );
+    }
+
+    private void enableCamera() {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 
 

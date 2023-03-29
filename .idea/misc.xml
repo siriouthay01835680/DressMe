@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_camera.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17291666666666666" />
+        <entry key="app/src/main/res/layout/clothing_view.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/fragment_closet.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/fragment_donate.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/fragment_drawing_board.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_dress_me.xml" value="0.26979166666666665" />
-        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_scrapbook.xml" value="0.1989456176757812" />
         <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.28541666666666665" />
       </map>
     </option>
