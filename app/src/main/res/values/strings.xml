@@ -18,4 +18,8 @@
     <string name="scrapbook">Scrapbook</string>
     <string name="upload_screen">Upload Screen</string>
     <string name="send_to_drawing_board">Send to Drawing Board</string>
+    <string name="delete_item">Delete item</string>
+    <string name="go_back">Go Back</string>
+    <string name="send_back_to_closet">Send Back to Closet</string>
+    <string name="donate_item">Donate Item</string>
 </resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:background="@drawable/popupbg"
+        android:layout_margin="10dp"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/popupImg"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/orangeshirt"
+            android:layout_gravity="center">
+        </ImageView>
+        <Button
+            android:id="@+id/popUpC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_back_to_closet"
+            android:layout_gravity="center">
+
+        </Button>
+
+        <Button
+            android:id="@+id/popUpDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_item"
+            android:layout_gravity="center">
+
+        </Button>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_back"
+        android:padding="5dp">
+
+    </TextView>
+    </RelativeLayout>
+</RelativeLayout>

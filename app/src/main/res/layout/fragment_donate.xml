@@ -29,7 +29,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:src="@drawable/testshirt" />
+                android:src="@drawable/orangeshirt" />
 
             <ImageView
                 android:id="@+id/shirt2"
