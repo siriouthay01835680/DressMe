@@ -37,6 +37,13 @@ public class Closet extends Fragment {
 //                testShirt1.setImageDrawable(null);
             }
         });
+        Button drawBrdBtn = view.findViewById(R.id.drawBrdBtn);
+        drawBrdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_closet_to_drawingBoard);
+            }
+        });
 //        Button dressBtn = view.findViewById(R.id.dressMeButton);
 //        System.out.println("here");
 //        dressBtn.setOnClickListener(new View.OnClickListener() {
