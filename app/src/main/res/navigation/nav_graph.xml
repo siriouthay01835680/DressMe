@@ -59,7 +59,14 @@
         android:id="@+id/scrapbook"
         android:name="com.mobileapp.dressme.Scrapbook"
         android:label="fragment_scrapbook"
-        tools:layout="@layout/fragment_scrapbook" />
+        tools:layout="@layout/fragment_scrapbook" >
+        <argument
+            android:name="shirt"
+            app:argType="string" />
+        <argument
+            android:name="pants"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/upload"
         android:name="com.mobileapp.dressme.Upload"

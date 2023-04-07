@@ -92,20 +92,29 @@
         android:layout_marginRight="10dp"
         android:text="@string/RegenerateButton" />
 
-    <ImageView
-        android:id="@+id/genShirt"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/testshirt"
-        android:layout_gravity="center"
-        android:visibility="invisible"/>
-    <ImageView
-        android:id="@+id/genPant"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/testpants"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:visibility="invisible"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:id="@+id/imgLayout">
+
+<!--        <ImageView-->
+<!--            android:id="@+id/genShirt"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:src="@drawable/testshirt"-->
+<!--            android:visibility="invisible" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/genPant"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:src="@drawable/testpants"-->
+<!--            android:visibility="invisible" />-->
+    </LinearLayout>
 
 </FrameLayout>
