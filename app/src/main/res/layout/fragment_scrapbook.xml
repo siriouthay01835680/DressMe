@@ -33,23 +33,24 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayout1">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
@@ -70,21 +71,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
@@ -104,21 +105,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
@@ -138,21 +139,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
@@ -172,21 +173,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
@@ -206,21 +207,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/testshirt">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:src="@drawable/testshirt">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/testpants">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:src="@drawable/testpants">-->
 
-                </ImageView>
+<!--                </ImageView>-->
 
             </RelativeLayout>
 
