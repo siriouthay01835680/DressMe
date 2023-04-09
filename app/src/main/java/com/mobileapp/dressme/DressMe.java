@@ -70,7 +70,9 @@ public class DressMe extends Fragment {
         scrapbookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook(resultItems[0][0], resultItems[0][1]);
+                DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook();
+                action.setShirt(resultItems[0][0]);
+                action.setPants(resultItems[0][1]);
                 Navigation.findNavController(view).navigate(action);
             }
         });
@@ -78,6 +80,7 @@ public class DressMe extends Fragment {
         return view;
     }
     public String[] outfitGeneration(LinearLayout layout){
+        //these should be read from file or tags
         String[] shirtIds = {"orangeshirt", "testshirt"};
         String[] pantsIds = {"testpants"};
         Random rand = new Random();
