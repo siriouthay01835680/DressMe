@@ -25,14 +25,14 @@
             android:layout_gravity="center">
 
         </Button>
-        <Button
-            android:id="@+id/popUpSB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_to_scrapbook"
-            android:layout_gravity="center">
+<!--        <Button-->
+<!--            android:id="@+id/popUpSB"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/send_to_scrapbook"-->
+<!--            android:layout_gravity="center">-->
 
-        </Button>
+<!--        </Button>-->
         <Button
             android:id="@+id/popUpDelete"
             android:layout_width="wrap_content"
