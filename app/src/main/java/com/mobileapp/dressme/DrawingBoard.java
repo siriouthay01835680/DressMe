@@ -113,7 +113,6 @@ public class DrawingBoard extends Fragment {
                 int resId = getResources().getIdentifier(pants[i], "drawable", "com.mobileapp.dressme");
 
                 img.setImageDrawable(getResources().getDrawable(resId));
-//                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 layout.addView(img);
                 img.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
