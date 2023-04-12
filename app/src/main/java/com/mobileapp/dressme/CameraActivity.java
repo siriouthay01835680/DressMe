@@ -1,15 +1,21 @@
 package com.mobileapp.dressme;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Size;
-import android.view.OrientationEventListener;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -22,32 +28,49 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class CameraActivity extends AppCompatActivity {
-    private PreviewView previewView;
+    PreviewView previewView;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private TextView textView;
+    private ImageCapture imageCapture;
+    Button captureButton;
 
-    @Override
+    //@Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //View view = inflater.inflate(R.layout.activity_camera,
+        //      container, false);
+
         setContentView(R.layout.activity_camera);
+        captureButton = findViewById(R.id.button_capture);
         previewView = findViewById(R.id.previewView);
+
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-        textView = findViewById(R.id.orientation);
+
         cameraProviderFuture.addListener(new Runnable() {
             @Override
             public void run() {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindImageAnalysis(cameraProvider);
+                    startCameraX(cameraProvider);
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }, ContextCompat.getMainExecutor(this));
+        }, ContextCompat.getMainExecutor(this));//getExecutor());
     }
 
+       /* captureButton.setOnClickListener(new View.OnClickListener() {
+            //set on click listener
+            public void onClick(View view) {
+                if (view.getId() == R.id.button_capture) {
+                    capturePhoto();
+                }
+            }
 
-    private void bindImageAnalysis(@NonNull ProcessCameraProvider cameraProvider) {
+        }); */
+    //
+
+    private void startCameraX(ProcessCameraProvider cameraProvider) {
+        //cameraProvider.unbindAll();
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder().setTargetResolution(new Size(1280, 720))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
@@ -57,18 +80,92 @@ public class CameraActivity extends AppCompatActivity {
                 image.close();
             }
         });
-        OrientationEventListener orientationEventListener = new OrientationEventListener(this) {
-            @Override
-            public void onOrientationChanged(int orientation) {
-                textView.setText(Integer.toString(orientation));
-            }
-        };
-        orientationEventListener.enable();
+
         Preview preview = new Preview.Builder().build();
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
+
+
+        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
+
+
+        //preview.setSurfaceProvider(previewView.getSurfaceProvider());
+        //Preview preview = new Preview.Builder().build();
+
+       /* Camera camera = cameraProvider.bindToLifecycle(
+                ((LifecycleOwner) this),
+                cameraSelector,
+                preview,
+                imageCapture);*/
+
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector,
+
+        imageCapture = new ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build();
+
+        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector,imageCapture,
                 imageAnalysis, preview);
+
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            //set on click listener
+            public void onClick(View view) {
+                if (view.getId() == R.id.button_capture) {
+                    capturePhoto();
+                }
+            }
+
+        });
+
+    }
+
+    private void capturePhoto() {
+        //ImageCapture.OutputFileOptions outputFileOptions =
+          //      new ImageCapture.OutputFileOptions.Builder(new File("/Users/krestinabeshara/DressMe/app/src/main/assets/tempHolder")).build();
+       // File photoDir = new File("/Users/krestinabeshara/DressMe/app/src/main/assets/tempHolder");
+       // if(!photoDir.exists())
+        //{
+          //  photoDir.mkdir();
+        //}
+
+       /* Date date = new Date();
+        String timestamp = String.valueOf(date.getTime());
+        String photoFilePath = photoDir.getAbsolutePath() + "/" + timestamp + ".jpeg";
+
+        File photoFile = new File(photoFilePath);
+        */
+
+        long timestamp = System.currentTimeMillis();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+        ContentResolver resolver = getContentResolver();
+        imageCapture.takePicture(
+                new ImageCapture.OutputFileOptions.Builder(
+                        getContentResolver(),
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        contentValues
+                ).build(),
+                ContextCompat.getMainExecutor(this),
+                //outputFileOptions,ContextCompat.getMainExecutor(this),
+                //new ImageCapture.OutputFileOptions.Builder(photoFile).build(),
+                //ContextCompat.getMainExecutor(this),
+                new ImageCapture.OnImageSavedCallback() {
+                    @Override
+                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                        saveImage();
+                        Toast.makeText(CameraActivity.this, "Photo saved successfully", Toast.LENGTH_SHORT).show();
+
+                    }
+                    @Override
+                    public void onError(@NonNull ImageCaptureException exception) {
+                        Toast.makeText(CameraActivity.this, "Error saving photo: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+        );
+
+    }
+    private void saveImage() {
+        
     }
 }
+
+

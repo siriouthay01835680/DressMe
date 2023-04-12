@@ -25,16 +25,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -72,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     enableCamera();
                 } else {
                     requestPermission();
+                    //enableCamera();
                 }
             }
         });
@@ -97,12 +88,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
