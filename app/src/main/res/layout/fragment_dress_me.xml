@@ -12,7 +12,7 @@
         android:text="@string/DressMeTitle"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
 
         />
 
@@ -23,40 +23,43 @@
         android:text="@string/SeasonPrompt"
         android:textColor="@color/black"
         android:layout_marginLeft="10dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"/>
 
-    <RadioButton
-        android:id="@+id/FallButton"
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="55dp"
-        android:text="@string/FallButton" />
+        android:id="@+id/radioGroup">
 
-    <RadioButton
-        android:id="@+id/SpringButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/SpringButton" />
+        <RadioButton
+            android:id="@+id/FallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="55dp"
+            android:text="@string/FallButton" />
 
-    <RadioButton
-        android:id="@+id/SummerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/SummerButton" />
+        <RadioButton
+            android:id="@+id/SpringButton"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/SpringButton" />
 
-    <RadioButton
-        android:id="@+id/WinterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="145dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/WinterButton" />
+        <RadioButton
+            android:id="@+id/SummerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/SummerButton" />
+
+        <RadioButton
+            android:id="@+id/WinterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/WinterButton" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/generateBtn"
