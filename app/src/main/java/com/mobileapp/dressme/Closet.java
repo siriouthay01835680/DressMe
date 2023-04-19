@@ -25,6 +25,8 @@ public class Closet extends Fragment {
     String[] shirts = {};
     String[] pants = {};
     ClosetDirections.ActionClosetToDrawingBoard actionDB;
+    Boolean isShirtClicked = false;
+    Boolean isPantClicked = false;
     public static Closet newInstance() {
         return new Closet();
     }
@@ -32,6 +34,13 @@ public class Closet extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+//        if(savedInstanceState != null){
+//            savedInstanceState.getStringArray("shirts");
+//            savedInstanceState.getStringArray("pants");
+//            shirts = shirts;
+//            pants = pants;
+//            System.out.println("restored");
+//        }
         View view = inflater.inflate(R.layout.fragment_closet,
                 container, false);
         ImageView testShirt1 = view.findViewById(R.id.shirt1);
@@ -46,12 +55,13 @@ public class Closet extends Fragment {
 
         Button sendDB = view.findViewById(R.id.drawBrdBtn);
 
+        //disable send to drawing board btn if no shirt & pant is not already sent
+        sendDB.setEnabled(false);
 
         drawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 actionDB = ClosetDirections.actionClosetToDrawingBoard(shirts, pants);
-
             }
         });
         sendDB.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +78,7 @@ public class Closet extends Fragment {
 //                Navigation.findNavController(view).navigate(R.id.action_closet_to_scrapbook);
 //            }
 //        });
+        //
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +95,10 @@ public class Closet extends Fragment {
         testShirt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isShirtClicked = true;
+                if(isShirtClicked && isPantClicked){
+                    sendDB.setEnabled(true);
+                }
 //                System.out.println("click");
 //                testShirt1.setVisibility(View.GONE);
 //                testShirt1.setImageDrawable(null);
@@ -115,6 +130,10 @@ public class Closet extends Fragment {
         pant1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isPantClicked = true;
+                if(isShirtClicked && isPantClicked){
+                    sendDB.setEnabled(true);
+                }
 //                System.out.println("click");
 //                testShirt1.setVisibility(View.GONE);
 //                testShirt1.setImageDrawable(null);
@@ -142,48 +161,16 @@ public class Closet extends Fragment {
 
             }
         });
-//        Button drawBrdBtn = view.findViewById(R.id.drawBrdBtn);
-//        drawBrdBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(view).navigate(R.id.action_closet_to_drawingBoard);
-//            }
-//        });
-//        Button dressBtn = view.findViewById(R.id.dressMeButton);
-//        System.out.println("here");
-//        dressBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(view).navigate(R.id.action_homeScreen_to_dressMe2);
-//            }
-//        });
-//        Button uploadBtn = view.findViewById(R.id.uploadButton);
-//        uploadBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(view).navigate(R.id.action_homeScreen_to_upload2);
-//            }
-//        });
-
         return view;
     }
 
-    private void createPopUp() {
-    }
-//
 //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        ImageView testShirt1 = view.findViewById(R.id.shirt1);
-//        testShirt1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                System.out.println("click");
-////                testShirt1.setVisibility(View.GONE);
-////                testShirt1.setImageDrawable(null);
-//
-//
-//            }
-//        });
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        outState.putStringArray("shirts", shirts);
+//        outState.putStringArray("pants", pants);
+//        System.out.println("saved");
+//        super.onSaveInstanceState(outState);
 //    }
+
+
 }

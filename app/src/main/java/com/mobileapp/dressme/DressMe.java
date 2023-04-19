@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import java.util.Random;
 public class DressMe extends Fragment {
 
     private DressMeViewModel mViewModel;
+    Boolean isGenerated = false;
 
     public static DressMe newInstance() {
         return new DressMe();
@@ -40,6 +42,19 @@ public class DressMe extends Fragment {
         LinearLayout layout = view.findViewById(R.id.imgLayout);
         Button regenerate = view.findViewById(R.id.regenerateBtn);
         final String[][] resultItems = new String[1][1];
+        Button scrapbookBtn = view.findViewById(R.id.scrapbookBtn);
+
+        //to disable scrapbook & regenerate button if outfit hasn't been generated.
+        scrapbookBtn.setEnabled(false);
+        regenerate.setEnabled(false);
+
+        //to disable button if no radio button is checked
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+        int id = radioGroup.getCheckedRadioButtonId();
+        if(id == -1){
+            generate.setEnabled(false);
+        }
+
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +64,9 @@ public class DressMe extends Fragment {
                 //outline for randomizer
                 //for now have array of test img ids
                 resultItems[0] = outfitGeneration(layout);
+                isGenerated = true;
+                scrapbookBtn.setEnabled(true);
+                regenerate.setEnabled(true);
 //                System.out.println(resultItems[0][1]);
 
             }
@@ -66,7 +84,6 @@ public class DressMe extends Fragment {
 
             }
         });
-        Button scrapbookBtn = view.findViewById(R.id.scrapbookBtn);
         scrapbookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +93,16 @@ public class DressMe extends Fragment {
                 Navigation.findNavController(view).navigate(action);
             }
         });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    generate.setEnabled(true);
+            }
+        });
+
+
+
 
         return view;
     }

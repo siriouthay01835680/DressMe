@@ -58,6 +58,7 @@ public class DrawingBoard extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     public void displayItems(String[] shirts, String[] pants, LinearLayout layout){
         //change to switch
+        LinearLayout.LayoutParams lp =  new LinearLayout.LayoutParams(500,500);
         if(shirts.length != 0){
             for(int i = 0; i < shirts.length; i++){
                 System.out.println("here1");
@@ -65,7 +66,6 @@ public class DrawingBoard extends Fragment {
                 ImageView img = new ImageView(layout.getContext());
                 int id = 200 + i;
                 img.setId(id);
-                LinearLayout.LayoutParams lp =  new LinearLayout.LayoutParams(500,500);
                 img.setLayoutParams(lp);
 //                img.setImageDrawable(getResources().getDrawable(R.drawable.testshirt));
                 int resId = getResources().getIdentifier(shirts[i], "drawable", "com.mobileapp.dressme");
@@ -82,19 +82,19 @@ public class DrawingBoard extends Fragment {
                     public boolean onTouch(View v, MotionEvent event) {
                         System.out.println("touch");
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
-                            x = event.getX();
-                            y = event.getY();
+                            x = event.getRawX();
+                            y = event.getRawY();
                             return true;
                         }
                         if(event.getAction() == MotionEvent.ACTION_MOVE){
-                            dx = event.getX() - x;
-                            dy = event.getY() - y;
+                            dx = event.getRawX() - x;
+                            dy = event.getRawY() - y;
 
                             v.setX(v.getX() + dx);
                             v.setY(v.getY() + dy);
 
-                            x = event.getX();
-                            y = event.getY();
+                            x = event.getRawX();
+                            y = event.getRawY();
                             return true;
                         }
                         return false;
@@ -120,19 +120,19 @@ public class DrawingBoard extends Fragment {
                     public boolean onTouch(View v, MotionEvent event) {
                         System.out.println("touch");
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
-                            x = event.getX();
-                            y = event.getY();
+                            x = event.getRawX();
+                            y = event.getRawY();
                             return true;
                         }
                         if(event.getAction() == MotionEvent.ACTION_MOVE){
-                            dx = event.getX() - x;
-                            dy = event.getY() - y;
+                            dx = event.getRawX() - x;
+                            dy = event.getRawY() - y;
 
                             v.setX(v.getX() + dx);
                             v.setY(v.getY() + dy);
 
-                            x = event.getX();
-                            y = event.getY();
+                            x = event.getRawX();
+                            y = event.getRawY();
                             return true;
                         }
                         return false;
