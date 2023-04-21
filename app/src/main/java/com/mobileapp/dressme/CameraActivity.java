@@ -2,6 +2,7 @@ package com.mobileapp.dressme;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Size;
@@ -25,6 +26,9 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.concurrent.ExecutionException;
 
 public class CameraActivity extends AppCompatActivity {
@@ -36,8 +40,6 @@ public class CameraActivity extends AppCompatActivity {
     //@Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //View view = inflater.inflate(R.layout.activity_camera,
-        //      container, false);
 
         setContentView(R.layout.activity_camera);
         captureButton = findViewById(R.id.button_capture);
@@ -58,16 +60,6 @@ public class CameraActivity extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));//getExecutor());
     }
 
-       /* captureButton.setOnClickListener(new View.OnClickListener() {
-            //set on click listener
-            public void onClick(View view) {
-                if (view.getId() == R.id.button_capture) {
-                    capturePhoto();
-                }
-            }
-
-        }); */
-    //
 
     private void startCameraX(ProcessCameraProvider cameraProvider) {
         //cameraProvider.unbindAll();
@@ -116,25 +108,12 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void capturePhoto() {
-        //ImageCapture.OutputFileOptions outputFileOptions =
-          //      new ImageCapture.OutputFileOptions.Builder(new File("/Users/krestinabeshara/DressMe/app/src/main/assets/tempHolder")).build();
-       // File photoDir = new File("/Users/krestinabeshara/DressMe/app/src/main/assets/tempHolder");
-       // if(!photoDir.exists())
-        //{
-          //  photoDir.mkdir();
-        //}
-
-       /* Date date = new Date();
-        String timestamp = String.valueOf(date.getTime());
-        String photoFilePath = photoDir.getAbsolutePath() + "/" + timestamp + ".jpeg";
-
-        File photoFile = new File(photoFilePath);
-        */
 
         long timestamp = System.currentTimeMillis();
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp);
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+
         ContentResolver resolver = getContentResolver();
         imageCapture.takePicture(
                 new ImageCapture.OutputFileOptions.Builder(
@@ -149,9 +128,8 @@ public class CameraActivity extends AppCompatActivity {
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        saveImage();
                         Toast.makeText(CameraActivity.this, "Photo saved successfully", Toast.LENGTH_SHORT).show();
-
+                        saveImage();
                     }
                     @Override
                     public void onError(@NonNull ImageCaptureException exception) {
@@ -160,10 +138,49 @@ public class CameraActivity extends AppCompatActivity {
                     }
 
                 }
+
         );
 
+
     }
+
     private void saveImage() {
+
+
+        String folder_main = "/storage/emulated/0/tempHolder";
+
+       // String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + folder_main;
+        File f = new File(folder_main);
+        if (f.exists()) {
+
+                System.out.println("Successful");
+
+        }
+        else{
+            System.out.println("not successful");
+        }
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            Bitmap bitMap = null;
+            bitMap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            String uniqueFileName;
+            MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(),
+                    bitMap, f.getPath(), "testing.png");
+            System.out.println("Made it in here");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            System.out.println("file not found");
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println("error");
+            e.printStackTrace();
+        }
+
         
     }
 }
