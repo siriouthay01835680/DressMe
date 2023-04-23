@@ -9,6 +9,7 @@ Name: Aria Siriouthay & Krestina Beshara
 */
 package com.mobileapp.dressme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -25,18 +26,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String[] CAMERA_PERMISSION = new String[]{android.Manifest.permission.CAMERA};
@@ -48,6 +44,45 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String File_Name= "tempImageHolder"; //gives file name
+        String Data="Hello!!"; //define data
+
+        FileOutputStream fileobj = null;
+        try {
+            fileobj = openFileOutput( File_Name, Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        byte[] ByteArray = Data.getBytes(); //Converts into bytes stream
+        try {
+            fileobj.write(ByteArray); //writing to file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fileobj.close(); //File closed
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileInputStream fileInputStream =  openFileInput("Demo.txt");
+            int read = -1;
+            StringBuffer buffer = new StringBuffer();
+            while((read =fileInputStream.read())!= -1){
+                buffer.append((char)read);
+            }
+            System.out.println(buffer);
+//            Log.d("Code", buffer.toString());
+//            String name = buffer.substring(0,buffer.indexOf(" "));
+//            String pass = buffer.substring(buffer.indexOf(" ")+1);
+//            getname.setText(name);
+//            getpass.setText(pass);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     enableCamera();
                 } else {
                     requestPermission();
+                    //enableCamera();
                 }
             }
         });
@@ -95,14 +131,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
     }
-
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

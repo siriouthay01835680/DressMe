@@ -23,4 +23,8 @@
     <string name="go_back">Go Back</string>
     <string name="send_back_to_closet">Send Back to Closet</string>
     <string name="donate_item">Donate Item</string>
+    <string name="camera_prompt">Cateogorize this item.</string>
+    <string name="what_kind_of_item_is_it">What kind of item is it?</string>
+    <string name="what_season_is_it_for">What season is it for?</string>
+    <string name="done">Done</string>
 </resources>
