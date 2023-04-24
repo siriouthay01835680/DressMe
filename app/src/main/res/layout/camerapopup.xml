@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/popupbg"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/what_kind_of_item_is_it"
+            android:textColor="@color/black" />
+
+        <RadioGroup
+            android:id="@+id/radioItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/cameraTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top" />
+            <RadioButton
+                android:id="@+id/cameraBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Bottom" />
+        </RadioGroup>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/what_season_is_it_for"
+            android:textColor="@color/black" />
+        <RadioGroup
+            android:id="@+id/radioSeason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/cameraSpring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spring" />
+            <RadioButton
+                android:id="@+id/cameraSummer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Summer" />
+            <RadioButton
+                android:id="@+id/cameraFall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fall" />
+            <RadioButton
+                android:id="@+id/cameraWinter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Winter" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/cameraDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:layout_gravity="center_horizontal">
+        </Button>
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginTop="10dp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/go_back"-->
+<!--                    android:padding="5dp">-->
+<!--                </TextView>-->
+<!--            </RelativeLayout>-->
+        </LinearLayout>
+</RelativeLayout>

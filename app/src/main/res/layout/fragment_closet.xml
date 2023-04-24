@@ -31,7 +31,8 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:src="@drawable/orangeshirt"
-                android:visibility="visible"/>
+                android:visibility="visible"
+                android:tag="orangeshirt"/>
 
             <ImageView
                 android:id="@+id/shirt2"
@@ -82,7 +83,8 @@
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:src="@drawable/testpants" />
+                android:src="@drawable/testpants"
+                android:tag="testpants"/>
 
             <ImageView
                 android:id="@+id/pant2"
@@ -110,13 +112,13 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!--    <Button-->
-<!--        android:id="@+id/drawBrdBtn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/send_to_drawing_board"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+        <Button
+        android:id="@+id/drawBrdBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_to_drawing_board"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_drawingBoard_to_scrapbook"
             app:destination="@id/scrapbook" />
+        <argument
+            android:name="shirts"
+            app:argType="string[]" />
+        <argument
+            android:name="pants"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/homeScreen"
@@ -59,7 +65,25 @@
         android:id="@+id/scrapbook"
         android:name="com.mobileapp.dressme.Scrapbook"
         android:label="fragment_scrapbook"
-        tools:layout="@layout/fragment_scrapbook" />
+        tools:layout="@layout/fragment_scrapbook" >
+        <argument
+            android:name="shirt"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="pants"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="dbShirts"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument android:name="dbPants"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/upload"
         android:name="com.mobileapp.dressme.Upload"
