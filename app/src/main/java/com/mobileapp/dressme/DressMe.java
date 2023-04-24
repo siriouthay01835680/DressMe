@@ -170,8 +170,8 @@ public class DressMe extends Fragment {
     }
     public ArrayList<String> outfitGeneration(LinearLayout layout, ArrayList<String>folderNames){
         //these should be read from file or tags
-        String[] shirtIds = {"orangeshirt", "testshirt"};
-        String[] pantsIds = {"testpants"};
+//        String[] shirtIds = {"orangeshirt", "testshirt"};
+//        String[] pantsIds = {"testpants"};
         ArrayList<String> shirtNames = new ArrayList<String>();
         ArrayList<String> pantNames = new ArrayList<String>();
 
