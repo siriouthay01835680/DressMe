@@ -178,7 +178,7 @@ public class CameraActivity extends AppCompatActivity {
                     radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            System.out.println("season");
+//                            System.out.println("season");//r.id.checkedid
                             switch(checkedId) {
                                 case R.id.cameraSpring:
                                     resultFile += "Spring";
