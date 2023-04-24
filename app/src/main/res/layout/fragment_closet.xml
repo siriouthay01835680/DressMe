@@ -66,9 +66,10 @@
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64">
+        app:layout_constraintVertical_bias="0.639">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -109,7 +110,7 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-<!--    <Button-->
+    <!--    <Button-->
 <!--        android:id="@+id/drawBrdBtn"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
