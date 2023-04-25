@@ -1,7 +1,9 @@
 package com.mobileapp.dressme;
 
+import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,10 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Closet extends Fragment {
 
@@ -73,29 +75,11 @@ public class Closet extends Fragment {
         //should follow this following outline:
 
         //read from all files that contain tops
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
 
-        String[] names = file.list();
-        for(String name : names)
-        {
-            if (new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + name).isDirectory())
-            {
-                if(name.contains("top")){
-                    allShirts.add(name);
-//                    if(name.contains(radioText)){
-//                        folderNames.add(name);
-//                    }
-                }
-                if(name.contains("bottom")){
-                    allPants.add(name);
-//                    if(name.contains(radioText)){
-//                        folderNames.add(name);
-//                    }
-                }
-            }
-        }
-        displayShirts(shirtsLL, allShirts);
-        displayPants(pantsLL, allPants);
+
+        //refresh closet
+        
+       getCloset(shirtsLL, pantsLL);
 //        System.out.println(allShirts);
         //display each img
         //set on click listeners on imgs for pop ups
@@ -130,8 +114,20 @@ public class Closet extends Fragment {
             @Override
             public void onClick(View v) {
 //                testShirt1.setVisibility(View.GONE);
-//                System.out.println(v.getTag(0));
+                ImageView popUpImg = popUpView.findViewById(R.id.popupImg);
+//                System.out.println(popUpImg.getTag());
                 //need to set tag of imgs with their filepath or some sort of identifier so i can delete it
+                File deleteFile = new File((String) popUpImg.getTag());
+                if(deleteFile.exists()){
+                    if(deleteFile.delete()){
+                        Toast.makeText(getContext(), "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                        getCloset(shirtsLL, pantsLL);
+
+//                        if(((String) popUpImg.getTag()).contains("top")){
+//                            allShirts.
+//                        }
+                    }
+                }
             }
         });
         donateBtn.setOnClickListener(new View.OnClickListener() {
@@ -214,10 +210,35 @@ public class Closet extends Fragment {
         return view;
     }
 
+    private void getCloset(LinearLayout shirtsLL, LinearLayout pantsLL) {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
+
+        String[] names = file.list();
+        for(String name : names)
+        {
+            if (new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + name).isDirectory())
+            {
+                if(name.contains("top")){
+                    allShirts.add(name);
+//                    if(name.contains(radioText)){
+//                        folderNames.add(name);
+//                    }
+                }
+                if(name.contains("bottom")){
+                    allPants.add(name);
+//                    if(name.contains(radioText)){
+//                        folderNames.add(name);
+//                    }
+                }
+            }
+        }
+        displayShirts(shirtsLL, allShirts);
+        displayPants(pantsLL, allPants);
+    }
 
 
     private void displayShirts(LinearLayout linearLayout, ArrayList<String> allShirts) {
-        for (int i = 0; i < allShirts.size(); i++) {
+        for (int i = 0; i < allShirts.size()-1; i++) {
             File aFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allShirts.get(i));
             String[] files = aFolder.list();
             //System.out.println(Arrays.toString(files));
@@ -225,20 +246,24 @@ public class Closet extends Fragment {
                 ImageView img = new ImageView(linearLayout.getContext());
                 int id = 2000 + i;
                 img.setId(id);
-
+                img.setTag(img.getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(600, 600);
                 lp.setMargins(25, 25, 25, 25);
                 img.setLayoutParams(lp);
+                String imgPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allShirts.get(i) + "/" + name;
+
+
 //
 //                img.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));
                 Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allShirts.get(i) + "/" + name);
+//                System.out.println(allShirts.get(i) + "/" + name);
                 img.setImageBitmap(myBitmap);
 //        img.setImageDrawable(getResources().getDrawable(resId));
                 linearLayout.addView(img);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        displayPopUp(myBitmap);
+                        displayPopUp(myBitmap, imgPath);
                     }
                 });
             }
@@ -246,7 +271,7 @@ public class Closet extends Fragment {
         }
     }
     private void displayPants(LinearLayout linearLayout, ArrayList<String> allPants) {
-        for (int i = 0; i < allPants.size(); i++) {
+        for (int i = 0; i < allPants.size()-1; i++) {
             File aFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i));
             String[] files = aFolder.list();
 
@@ -255,7 +280,7 @@ public class Closet extends Fragment {
                 int id = 3000 + i;
                 img.setId(id);
 //                img.setTag(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i) + "/" + name);
-                System.out.println(name);
+//                System.out.println(name);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(600, 600);
                 lp.setMargins(25, 25, 25, 25);
                 img.setLayoutParams(lp);
@@ -263,19 +288,20 @@ public class Closet extends Fragment {
 //                img.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));
                 Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i) + "/" + name);
                 img.setImageBitmap(myBitmap);
+                String imgPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i) + "/" + name;
 //        img.setImageDrawable(getResources().getDrawable(resId));
                 linearLayout.addView(img);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        displayPopUp(myBitmap);
+                        displayPopUp(myBitmap, imgPath);
                     }
                 });
             }
 
         }
     }
-    private void displayPopUp(Bitmap myBitmap){
+    private void displayPopUp(Bitmap myBitmap, String imgPath){
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
@@ -285,6 +311,7 @@ public class Closet extends Fragment {
             @Override
             public void run() {
                 ImageView popUpImg = popUpView.findViewById(R.id.popupImg);
+                popUpImg.setTag(imgPath);
                 popUpImg.setImageBitmap(myBitmap);
                 popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
             }
