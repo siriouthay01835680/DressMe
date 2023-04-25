@@ -23,7 +23,9 @@
             android:layout_height="wrap_content"
             android:text="@string/send_to_drawing_board"
             android:layout_gravity="center"
-            android:backgroundTint="#A87680">
+            android:backgroundTint="#A87680"
+            android:fontFamily = "sans-serif-thin"
+            android:textStyle = "bold">
 
         </Button>
 <!--        <Button-->
@@ -40,7 +42,9 @@
             android:layout_height="wrap_content"
             android:text="@string/delete_item"
             android:layout_gravity="center"
-            android:backgroundTint="#A87680">
+            android:backgroundTint="#A87680"
+            android:fontFamily = "sans-serif-thin"
+            android:textStyle = "bold">
 
         </Button>
         <Button
@@ -49,7 +53,9 @@
             android:layout_height="wrap_content"
             android:text="@string/donate_item"
             android:layout_gravity="center"
-            android:backgroundTint="#A87680">
+            android:backgroundTint="#A87680"
+            android:fontFamily = "sans-serif-thin"
+            android:textStyle = "bold">
 
         </Button>
     </LinearLayout>

@@ -33,6 +33,8 @@
         android:layout_height="wrap_content"
         android:text="@string/send_to_scrapbook"
         android:backgroundTint="#A87680"
+        android:fontFamily = "sans-serif-thin"
+        android:textStyle = "bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -25,7 +25,9 @@
         android:backgroundTint="#A87680"
         android:textSize ="30sp"
         android:textStyle="bold"
-        android:text="@string/upload" />
+        android:text="@string/upload"
+        android:fontFamily = "sans-serif-thin"
+        />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

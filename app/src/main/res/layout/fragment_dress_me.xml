@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/DressMeTitle"
+        android:fontFamily = "cursive"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/white"
         android:textStyle = "bold"
@@ -29,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/SeasonPrompt"
+        android:fontFamily = "sans-serif-thin"
+        android:textStyle = "bold"
         android:textColor="@color/white"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"
@@ -46,6 +49,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="55dp"
             android:text="@string/FallButton"
+            android:fontFamily = "sans-serif-medium"
             android:textStyle = "bold"
             android:textColor="@color/white"/>
 
@@ -55,6 +59,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:text="@string/SpringButton"
+            android:fontFamily = "sans-serif-medium"
             android:textStyle = "bold"
             android:textColor="@color/white"/>
 
@@ -64,6 +69,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:text="@string/SummerButton"
+            android:fontFamily = "sans-serif-medium"
             android:textStyle = "bold"
             android:textColor="@color/white"/>
 
@@ -73,6 +79,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:text="@string/WinterButton"
+            android:fontFamily = "sans-serif-medium"
             android:textStyle = "bold"
             android:textColor="@color/white"/>
     </RadioGroup>
@@ -85,6 +92,8 @@
         android:layout_marginLeft="70dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/GenerateButton"
+        android:fontFamily = "sans-serif-thin"
+        android:textStyle = "bold"
         android:backgroundTint="#A87680"/>
 
     <View
@@ -102,7 +111,9 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="10dp"
         android:backgroundTint="#A87680"
-        android:text="@string/SendScrapbookButton" />
+        android:text="@string/SendScrapbookButton"
+        android:fontFamily = "sans-serif-thin"
+        android:textStyle = "bold"/>
 
     <Button
         android:id="@+id/regenerateBtn"
@@ -112,7 +123,9 @@
         android:layout_gravity="bottom|right"
         android:layout_marginRight="10dp"
         android:backgroundTint="#A87680"
-        android:text="@string/RegenerateButton" />
+        android:text="@string/RegenerateButton"
+        android:fontFamily = "sans-serif-thin"
+        android:textStyle = "bold"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
