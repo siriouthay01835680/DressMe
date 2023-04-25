@@ -7,45 +7,53 @@
     android:layout_height="match_parent"
     tools:context=".HomeScreen">
 
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/aestheticpinksky"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
     <Button
         android:id="@+id/dressMeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:alpha="0.8"
+        android:backgroundTint="#A87680"
         android:text="@string/dress_me"
+        android:textColor="#75284D"
+        android:textSize="40dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
-
-<!--    <Button-->
-<!--        android:id="@+id/uploadButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/upload"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/dressMeButton"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline4"-->
-<!--        app:layout_constraintHorizontal_bias="0.481"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline3" />-->
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:text="@string/drsme"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/uploadButton"
+        android:textColor="#2B2932"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_end="140dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

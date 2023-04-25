@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void enableCamera() {
         Intent intent = new Intent(this, CameraActivity.class);
+        System.out.println("about to start camera activity");
         startActivity(intent);
     }
 

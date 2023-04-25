@@ -54,10 +54,42 @@ public class DressMe extends Fragment {
         if(id == -1){
             generate.setEnabled(false);
         }
+        final String[] resultFile = {""};
+        final boolean[] isSeasonChecked = {false};
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                            System.out.println("season");
+                switch(checkedId) {
+                    case R.id.SpringButton:
+                        resultFile[0] = "Spring";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.SummerButton:
+                        resultFile[0] = "Summer";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.FallButton:
+                        resultFile[0] = "Fall";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.WinterButton:
+                        resultFile[0] = "Winter";
+                        isSeasonChecked[0] = true;
+                        break;
+                    default:
+                        resultFile[0] = "";
+                        isSeasonChecked[0] = false;
+                        break;
+                }
 
+            }
+        });
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//
+//
 //                shirt.setVisibility(view.VISIBLE);
 //                pants.setVisibility(view.VISIBLE);
                 //read from file to pick random shirt/pant

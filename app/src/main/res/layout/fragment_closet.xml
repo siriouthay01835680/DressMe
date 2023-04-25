@@ -7,7 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".Closet">
 
-
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/aestheticpinksky"
+        android:scaleType = "centerCrop"
+        android:alpha = "0.8"
+        />
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
@@ -119,6 +126,7 @@
         android:text="@string/send_to_drawing_board"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#A87680"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
