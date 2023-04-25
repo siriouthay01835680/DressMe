@@ -13,10 +13,13 @@
         <entry key="app/src/main/res/layout/fragment_donate.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_drawing_board.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_dress_me.xml" value="0.26979166666666665" />
+        <entry key="app/src/main/res/layout/fragment_help.xml" value="0.284375" />
+        <entry key="app/src/main/res/layout/fragment_help1.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.25611419677734376" />
         <entry key="app/src/main/res/layout/fragment_scrapbook.xml" value="0.1989456176757812" />
         <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/mainpopup.xml" value="0.16184971098265896" />
+        <entry key="app/src/main/res/menu/menu_toolbar.xml" value="0.28541666666666665" />
       </map>
     </option>
   </component>

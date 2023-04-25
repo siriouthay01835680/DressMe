@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -112,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private boolean hasCameraPermission() {
         return ContextCompat.checkSelfPermission(
                 this,
@@ -137,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+
     }
 
 }
