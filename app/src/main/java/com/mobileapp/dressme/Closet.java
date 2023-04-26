@@ -1,6 +1,5 @@
 package com.mobileapp.dressme;
 
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -8,7 +7,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
@@ -17,9 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -35,8 +40,10 @@ public class Closet extends Fragment {
     Boolean isPantClicked = false;
     ArrayList<String> allShirts = new ArrayList<>();
     ArrayList<String> allPants = new ArrayList<>();
+    ArrayList<ImageView> clickedImgs = new ArrayList<>();
     View view;
     View popUpView;
+    PopupWindow popupWindow;
     public static Closet newInstance() {
         return new Closet();
     }
@@ -64,6 +71,7 @@ public class Closet extends Fragment {
         Button donateBtn = popUpView.findViewById(R.id.popUpDonate);
 
         Button sendDB = view.findViewById(R.id.drawBrdBtn);
+        Button refresh = view.findViewById(R.id.refreshBtn);
 
         LinearLayout shirtsLL = view.findViewById(R.id.shirtsLL);
         LinearLayout pantsLL = view.findViewById(R.id.pantsLL);
@@ -88,6 +96,41 @@ public class Closet extends Fragment {
 
         //read from all files thar contain bottoms
         //repeat above
+
+//        refresh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+////                transaction.add(R.id.closet, new Closet());
+////                transaction.commit();
+////
+////                //final FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
+////                Fragment current = requireActivity().getSupportFragmentManager().findFragmentById(R.id.closet);
+////                transaction.detach(current).attach(current).commit();
+////                requireActivity().getSupportFragmentManager().beginTransaction().detach(Closet.this).commit();
+////
+////                requireActivity().getSupportFragmentManager().beginTransaction().attach(Closet.this).commit();
+////                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.closet, new Closet()).commit();
+////                getChildFragmentManager()
+////                        .beginTransaction()
+////                        .detach(Closet.this)
+////                        .attach(Closet.this)
+////                        .addToBackStack(null)
+////                        .commit();
+//                HorizontalScrollView shirtView = view.findViewById(R.id.horizontalScrollView);
+//                HorizontalScrollView pantView = view.findViewById(R.id.horizontalScrollView2);
+//                FragmentManager fragmentManager = requireParentFragment().getParentFragmentManager();
+//                final Fragment current = fragmentManager.findFragmentById(R.id.closet);
+//                if(current == null || !(current instanceof Closet)) {
+//                    fragmentManager.beginTransaction()
+//                            .replace(R.id.closet, Closet.newInstance())
+//                            .commitAllowingStateLoss();
+//
+//
+//                }
+//            }
+//        });
 
         drawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,19 +158,31 @@ public class Closet extends Fragment {
             public void onClick(View v) {
 //                testShirt1.setVisibility(View.GONE);
                 ImageView popUpImg = popUpView.findViewById(R.id.popupImg);
+
 //                System.out.println(popUpImg.getTag());
                 //need to set tag of imgs with their filepath or some sort of identifier so i can delete it
                 File deleteFile = new File((String) popUpImg.getTag());
                 if(deleteFile.exists()){
                     if(deleteFile.delete()){
                         Toast.makeText(getContext(), "Item deleted successfully", Toast.LENGTH_SHORT).show();
-                        getCloset(shirtsLL, pantsLL);
+//                        getCloset(shirtsLL, pantsLL);
+                            ImageView img = clickedImgs.get(0);
+                            img.setVisibility(View.GONE);
+                           clickedImgs.clear();
+                    }
+                    if(deleteFile.getParentFile().exists()){
+                        File parentFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + deleteFile.getParentFile().getName());
+                        File[] allFiles = parentFile.listFiles();
+                        if(allFiles.length == 0){
+                            if(parentFile.delete()){
+                                System.out.println("deleted folder");
+                            }
 
-//                        if(((String) popUpImg.getTag()).contains("top")){
-//                            allShirts.
-//                        }
+                        }
+//
                     }
                 }
+                popupWindow.dismiss();
             }
         });
         donateBtn.setOnClickListener(new View.OnClickListener() {
@@ -246,9 +301,10 @@ public class Closet extends Fragment {
                 ImageView img = new ImageView(linearLayout.getContext());
                 int id = 2000 + i;
                 img.setId(id);
-                img.setTag(img.getContext());
+                //img.setTag(id);
+                System.out.println(img.getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(600, 600);
-                lp.setMargins(25, 25, 25, 25);
+                lp.setMargins(10, 10, 10, 10);
                 img.setLayoutParams(lp);
                 String imgPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allShirts.get(i) + "/" + name;
 
@@ -259,11 +315,13 @@ public class Closet extends Fragment {
 //                System.out.println(allShirts.get(i) + "/" + name);
                 img.setImageBitmap(myBitmap);
 //        img.setImageDrawable(getResources().getDrawable(resId));
+                img.setRotation(90);
                 linearLayout.addView(img);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         displayPopUp(myBitmap, imgPath);
+                        clickedImgs.add((ImageView) v);
                     }
                 });
             }
@@ -282,8 +340,9 @@ public class Closet extends Fragment {
 //                img.setTag(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i) + "/" + name);
 //                System.out.println(name);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(600, 600);
-                lp.setMargins(25, 25, 25, 25);
+                lp.setMargins(10, 10, 10, 10);
                 img.setLayoutParams(lp);
+                img.setRotation(90);
 //
 //                img.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));
                 Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allPants.get(i) + "/" + name);
@@ -295,6 +354,7 @@ public class Closet extends Fragment {
                     @Override
                     public void onClick(View v) {
                         displayPopUp(myBitmap, imgPath);
+                        clickedImgs.add((ImageView) v);
                     }
                 });
             }
@@ -306,7 +366,14 @@ public class Closet extends Fragment {
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
 
-        PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
+        popupWindow = new PopupWindow(popUpView, width, height, focusable);
+        TextView popUpTxt = popUpView.findViewById(R.id.goback);
+        popUpTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
         view.post(new Runnable() {
             @Override
             public void run() {
