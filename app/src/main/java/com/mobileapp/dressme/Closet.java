@@ -152,6 +152,7 @@ public class Closet extends Fragment {
         sendDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clickedImgs.clear();
                 Navigation.findNavController(view).navigate(actionDB);
 
             }
