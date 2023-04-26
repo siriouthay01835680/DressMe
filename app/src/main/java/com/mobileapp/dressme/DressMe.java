@@ -38,6 +38,8 @@ public class DressMe extends Fragment {
     String radioText = "";
     ArrayList<String> folderNames = new ArrayList<String>();
     ArrayList<String> resultItems = new ArrayList<String>();
+    ArrayList<String> resultShirts = new ArrayList<String>();
+    ArrayList<String> resultPants = new ArrayList<String>();
 
 
 
@@ -150,8 +152,12 @@ public class DressMe extends Fragment {
             @Override
             public void onClick(View v) {
                 DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook();
-                action.setShirt(resultItems.get(0));
-                action.setPants(resultItems.get(1));
+                String[] resArr = new String[resultItems.size()];
+                resArr = resultItems.toArray(resArr);
+                String [] shirt = {resultItems.get(0)};
+                String [] pant = {resultItems.get(1)};
+                action.setShirt(shirt);
+                action.setPants(pant);
                 Navigation.findNavController(view).navigate(action);
             }
         });
@@ -256,8 +262,8 @@ public class DressMe extends Fragment {
 //        img1.setImageDrawable(getResources().getDrawable(resId));
 //        layout.addView(img1);
         ArrayList<String> result = new ArrayList<String>();
-        result.add(shirtNames.get(shirtIndex) + "/" + names1[randShirtIndex]);
-        result.add(pantNames.get(pantIndex) + "/" + names2[randPantIndex]);
+        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirtNames.get(shirtIndex) + "/" + names1[randShirtIndex]);
+        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + pantNames.get(pantIndex) + "/" + names2[randPantIndex]);
 //        String[] result = {randShirt, randPants};
         return result;
     }

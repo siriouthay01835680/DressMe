@@ -16,6 +16,14 @@
         <action
             android:id="@+id/action_closet_to_scrapbook"
             app:destination="@id/scrapbook" />
+        <argument
+            android:name="imageStr"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_closet_to_donate"
+            app:destination="@id/donate" />
     </fragment>
     <fragment
         android:id="@+id/dressMe"
@@ -33,6 +41,11 @@
         <action
             android:id="@+id/action_donate_to_closet"
             app:destination="@id/closet" />
+        <argument
+            android:name="result"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/drawingBoard"
@@ -68,12 +81,14 @@
         tools:layout="@layout/fragment_scrapbook" >
         <argument
             android:name="shirt"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="pants"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string[]"
+            android:defaultValue="@null"
+            app:nullable="true" />
         <argument
             android:name="dbShirts"
             app:argType="string[]"
