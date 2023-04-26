@@ -7,24 +7,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
+        android:background = "#A87680"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
-    <Button
-        android:id="@+id/button2"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0"
-        android:backgroundTint="#A87680"
-        android:textSize ="30sp"
-        android:textStyle="bold"
-        android:text="@string/upload"
-        android:fontFamily = "sans-serif-thin"
-        />
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/soundOn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#A87680"
+            android:src="@android:drawable/ic_lock_silent_mode_off" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="353dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+
+            android:backgroundTint="#A87680"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/upload"
+
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +39,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private static final String[] CAMERA_PERMISSION = new String[]{android.Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
+    private boolean isPlaying = false;
 
     MaterialToolbar toolbar;
     @Override
@@ -45,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //adding music
+
+        ImageButton playPauseButton = findViewById(R.id.soundOn);
+        playPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying) {
+                    // Start playing the audio file
+                    stopService(new Intent(MainActivity.this, BackgroundMusicService.class));
+                    isPlaying = false;
+                    playPauseButton.setImageResource(android.R.drawable.ic_lock_silent_mode);
+                } else {
+                   startService(new Intent(MainActivity.this, BackgroundMusicService.class));
+                   isPlaying = true;
+                   playPauseButton.setImageResource(android.R.drawable.ic_lock_silent_mode_off);
+                }
+            }
+        });
 
         String File_Name= "tempImageHolder"; //gives file name
         String Data="Hello!!"; //define data
