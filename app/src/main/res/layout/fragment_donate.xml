@@ -30,39 +30,40 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/shirtsLL">
 
-            <ImageView
-                android:id="@+id/shirt1"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/orangeshirt" />
+<!--            <ImageView-->
+<!--                android:id="@+id/shirt1"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/orangeshirt" />-->
 
-            <ImageView
-                android:id="@+id/shirt2"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testshirt" />
+<!--            <ImageView-->
+<!--                android:id="@+id/shirt2"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testshirt" />-->
 
-            <ImageView
-                android:id="@+id/shirt3"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testshirt" />
+<!--            <ImageView-->
+<!--                android:id="@+id/shirt3"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testshirt" />-->
 
-            <ImageView
-                android:id="@+id/shirt4"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testshirt" />
+<!--            <ImageView-->
+<!--                android:id="@+id/shirt4"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testshirt" />-->
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -79,36 +80,37 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/pantsLL">
 
-            <ImageView
-                android:id="@+id/pant1"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testpants" />
-            <ImageView
-                android:id="@+id/pant2"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testpants" />
-            <ImageView
-                android:id="@+id/pant3"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testpants" />
-            <ImageView
-                android:id="@+id/pant4"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/testpants" />
+<!--            <ImageView-->
+<!--                android:id="@+id/pant1"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testpants" />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/pant2"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testpants" />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/pant3"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testpants" />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/pant4"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/testpants" />-->
         </LinearLayout>
     </HorizontalScrollView>
 

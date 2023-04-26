@@ -1,6 +1,8 @@
 package com.mobileapp.dressme;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -61,19 +63,15 @@ public class DrawingBoard extends Fragment {
         LinearLayout.LayoutParams lp =  new LinearLayout.LayoutParams(500,500);
         if(shirts.length != 0){
             for(int i = 0; i < shirts.length; i++){
-                System.out.println("here1");
+//                System.out.println("here1");
                 //dynamically create new imageview w/ clothing image
                 ImageView img = new ImageView(layout.getContext());
                 int id = 200 + i;
                 img.setId(id);
                 img.setLayoutParams(lp);
-//                img.setImageDrawable(getResources().getDrawable(R.drawable.testshirt));
-                int resId = getResources().getIdentifier(shirts[i], "drawable", "com.mobileapp.dressme");
-//                System.out.println("res" + resId)
-//                System.out.println(shirtIds[0]);
-//                img.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(randShirt, "drawable", "com.mobileapp.dressme")));
-                img.setImageDrawable(getResources().getDrawable(resId));
-//                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                Bitmap myBitmap = BitmapFactory.decodeFile(shirts[i]);
+                img.setImageBitmap(myBitmap);
+                img.setRotation(90);
                 layout.addView(img);
 
                 img.setOnTouchListener(new View.OnTouchListener() {
@@ -105,14 +103,13 @@ public class DrawingBoard extends Fragment {
         if(pants.length != 0){
             for(int i = 0; i < pants.length; i++){
                 //dynamically create new imageview w/ clothing image
-                System.out.println("here2");
                 ImageView img = new ImageView(layout.getContext());
                 int id = 300 + i;
                 img.setId(id);
-                img.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));
-                int resId = getResources().getIdentifier(pants[i], "drawable", "com.mobileapp.dressme");
-
-                img.setImageDrawable(getResources().getDrawable(resId));
+                img.setLayoutParams(lp);
+                Bitmap myBitmap = BitmapFactory.decodeFile(pants[i]);
+                img.setImageBitmap(myBitmap);
+                img.setRotation(90);
                 layout.addView(img);
                 img.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
