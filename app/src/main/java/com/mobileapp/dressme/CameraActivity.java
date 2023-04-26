@@ -129,34 +129,33 @@ public class CameraActivity extends AppCompatActivity {
                                 Toast.makeText(CameraActivity.this, "Please select a clothing item and season", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
-                    radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            System.out.println("season");//r.id.checkedid
-                            switch(checkedId) {
-                                case R.id.cameraSpring:
-                                    resultFile += "Spring";
-                                    isSeasonChecked = true;
-                                    break;
-                                case R.id.cameraSummer:
-                                    resultFile += "Summer";
-                                    isSeasonChecked = true;
-                                    break;
-                                case R.id.cameraFall:
-                                    resultFile += "Fall";
-                                    isSeasonChecked = true;
-                                    break;
-                                case R.id.cameraWinter:
-                                    resultFile += "Winter";
-                                    isSeasonChecked = true;
-                                    break;
-                                default:
-                                    resultFile = "";
-                                    isSeasonChecked = false;
-                                    break;
-
-                            }
+//
+//                    radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                        @Override
+//                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+////                            System.out.println("season");//r.id.checkedid
+//                            switch(checkedId) {
+//                                case R.id.cameraSpring:
+//                                    resultFile += "Spring";
+//                                    isSeasonChecked = true;
+//                                    break;
+//                                case R.id.cameraSummer:
+//                                    resultFile += "Summer";
+//                                    isSeasonChecked = true;
+//                                    break;
+//                                case R.id.cameraFall:
+//                                    resultFile += "Fall";
+//                                    isSeasonChecked = true;
+//                                    break;
+//                                case R.id.cameraWinter:
+//                                    resultFile += "Winter";
+//                                    isSeasonChecked = true;
+//                                    break;
+//                                default:
+//                                    resultFile = "";
+//                                    isSeasonChecked = false;
+//                                    break;
+//                            }
                             else
                             {
                                 RadioButton item = popUpView.findViewById(itemGroupID);

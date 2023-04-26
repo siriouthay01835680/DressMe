@@ -35,4 +35,5 @@
     <string name="helpText4">lastly, don\'t forget to check out the donations tab! if you sent items from your closet to donations, you can view all of it!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Refresh">refresh</string>
 </resources>
