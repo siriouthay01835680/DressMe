@@ -1,7 +1,10 @@
 package com.mobileapp.dressme;
 
 import android.app.ActionBar;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +41,11 @@ public class Scrapbook extends Fragment {
             int id = 110;
             img.setId(id);
             img.setLayoutParams(new android.view.ViewGroup.LayoutParams(250,250));
-            int resId = getResources().getIdentifier(shirt, "drawable", "com.mobileapp.dressme");
-
-            img.setImageDrawable(getResources().getDrawable(resId));
+//            int resId = getResources().getIdentifier(shirt, "drawable", "com.mobileapp.dressme");
+//
+//
+            Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirt);
+            img.setImageBitmap(myBitmap);
             layout.addView(img);
 
             ImageView img1 = new ImageView(layout.getContext());
@@ -48,10 +53,13 @@ public class Scrapbook extends Fragment {
             img1.setId(id);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(250, 250);
             img1.setLayoutParams(lp);
-
-            resId = getResources().getIdentifier(pants, "drawable", "com.mobileapp.dressme");
-
-            img1.setImageDrawable(getResources().getDrawable(resId));
+//
+//            resId = getResources().getIdentifier(pants, "drawable", "com.mobileapp.dressme");
+//
+//            img1.setImageDrawable(getResources().getDrawable(resId));
+            Bitmap myBitmap1 = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + pants);
+            img1.setImageBitmap(myBitmap1);
+//            layout.addView(img1);
             lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             layout.addView(img1);
         }

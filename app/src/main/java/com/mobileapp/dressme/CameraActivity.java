@@ -114,19 +114,11 @@ public class CameraActivity extends AppCompatActivity {
                             popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
                         }
                     });
-//                    topBtn = popUpView.findViewById(R.id.cameraTop);
-//                    bottomBtn = popUpView.findViewById(R.id.cameraBottom);
-//                    springBtn = popUpView.findViewById(R.id.cameraSpring);
-//                    summerBtn = popUpView.findViewById(R.id.cameraSummer);
-//                    fallBtn = popUpView.findViewById(R.id.cameraFall);
-//                    winterBtn = popUpView.findViewById(R.id.cameraWinter);
                     RadioGroup radioItems = popUpView.findViewById(R.id.radioItem);
                     RadioGroup radioSeason = popUpView.findViewById(R.id.radioSeason);
-//                    int itemGroupID = radioItems.getCheckedRadioButtonId();
-//                    int seasonGroupID = radioSeason.getCheckedRadioButtonId();
-                    //RadioButton cameraFall = popUpView.findViewById(R.id.cameraFall);
 
                     doneBtn.setOnClickListener(new View.OnClickListener() {
+
 
                         public void onClick(View v) {
                             resultFile = "";
@@ -135,6 +127,35 @@ public class CameraActivity extends AppCompatActivity {
                             if((itemGroupID == -1) || (seasonGroupID == -1))
                             {
                                 Toast.makeText(CameraActivity.this, "Please select a clothing item and season", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                    radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                            System.out.println("season");//r.id.checkedid
+                            switch(checkedId) {
+                                case R.id.cameraSpring:
+                                    resultFile += "Spring";
+                                    isSeasonChecked = true;
+                                    break;
+                                case R.id.cameraSummer:
+                                    resultFile += "Summer";
+                                    isSeasonChecked = true;
+                                    break;
+                                case R.id.cameraFall:
+                                    resultFile += "Fall";
+                                    isSeasonChecked = true;
+                                    break;
+                                case R.id.cameraWinter:
+                                    resultFile += "Winter";
+                                    isSeasonChecked = true;
+                                    break;
+                                default:
+                                    resultFile = "";
+                                    isSeasonChecked = false;
+                                    break;
+
                             }
                             else
                             {
