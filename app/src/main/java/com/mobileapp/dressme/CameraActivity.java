@@ -2,14 +2,13 @@ package com.mobileapp.dressme;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Size;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,15 +30,10 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
-import android.view.LayoutInflater;
-
 
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class CameraActivity extends AppCompatActivity {
@@ -47,35 +41,22 @@ public class CameraActivity extends AppCompatActivity {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageCapture imageCapture;
     Button captureButton;
-    Button springBtn;
-    Button summerBtn;
-    Button fallBtn;
-    Button winterBtn;
-    Button topBtn;
-    Button bottomBtn;
     View popUpView;
     String resultFile = "";
-    Boolean isItemChecked = false;
-    Boolean isSeasonChecked = false;
     View view1;
+    int itemGroupID;
+    int seasonGroupID;
 
-//    @Override
+    //    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        view1 = inflater.inflate(R.layout.activity_camera,
-//                container, false);
-//        popUpView = inflater.inflate(R.layout.camerapopup,null);
 
         setContentView(R.layout.activity_camera);
         LayoutInflater layoutInflater = getLayoutInflater();
         popUpView = layoutInflater.inflate(R.layout.camerapopup, null);
-//        setContentView(R.layout.camerapopup);
         captureButton = findViewById(R.id.button_capture);
         previewView = findViewById(R.id.previewView);
-
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
-
         cameraProviderFuture.addListener(new Runnable() {
             @Override
             public void run() {
@@ -107,30 +88,24 @@ public class CameraActivity extends AppCompatActivity {
 
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
 
-
-        //preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        //Preview preview = new Preview.Builder().build();
-
-       /* Camera camera = cameraProvider.bindToLifecycle(
-                ((LifecycleOwner) this),
-                cameraSelector,
-                preview,
-                imageCapture);*/
-
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
 
         imageCapture = new ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build();
 
-        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector,imageCapture,
+        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, imageCapture,
                 imageAnalysis, preview);
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             //set on click listener
             public void onClick(View view) {
                 if (view.getId() == R.id.button_capture) {
+
+                    //capturePhoto();
                     int width = ViewGroup.LayoutParams.WRAP_CONTENT;
                     int height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     boolean focusable = true;
+                    Button doneBtn = popUpView.findViewById(R.id.cameraDone);
+                    doneBtn.setEnabled(true);
 
                     PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
                     previewView.post(new Runnable() {
@@ -139,39 +114,19 @@ public class CameraActivity extends AppCompatActivity {
                             popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
                         }
                     });
-//                    topBtn = popUpView.findViewById(R.id.cameraTop);
-//                    bottomBtn = popUpView.findViewById(R.id.cameraBottom);
-//                    springBtn = popUpView.findViewById(R.id.cameraSpring);
-//                    summerBtn = popUpView.findViewById(R.id.cameraSummer);
-//                    fallBtn = popUpView.findViewById(R.id.cameraFall);
-//                    winterBtn = popUpView.findViewById(R.id.cameraWinter);
                     RadioGroup radioItems = popUpView.findViewById(R.id.radioItem);
                     RadioGroup radioSeason = popUpView.findViewById(R.id.radioSeason);
-                    Button doneBtn = popUpView.findViewById(R.id.cameraDone);
-                    doneBtn.setEnabled(false);
 
-                    radioItems.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            System.out.println("items");
-                            switch(checkedId) {
-                                case R.id.cameraTop:
-                                    resultFile = "top";
-                                    isItemChecked = true;
-                                    break;
-                                case R.id.cameraBottom:
-                                    resultFile = "bottom";
-                                    isItemChecked = true;
-                                    break;
-                                default:
-                                    resultFile = "";
-                                    isItemChecked = false;
-                                    break;
-                            }
-//                            System.out.println(resultFile);
-                            if(isItemChecked && isSeasonChecked){
-                                doneBtn.setEnabled(true);
-                            }
+                    doneBtn.setOnClickListener(new View.OnClickListener() {
+
+
+                        public void onClick(View v) {
+                            resultFile = "";
+                            itemGroupID = radioItems.getCheckedRadioButtonId();
+                            seasonGroupID = radioSeason.getCheckedRadioButtonId();
+                            if((itemGroupID == -1) || (seasonGroupID == -1))
+                            {
+                                Toast.makeText(CameraActivity.this, "Please select a clothing item and season", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -200,16 +155,18 @@ public class CameraActivity extends AppCompatActivity {
                                     resultFile = "";
                                     isSeasonChecked = false;
                                     break;
+
                             }
-                            if(isItemChecked && isSeasonChecked){
-                                doneBtn.setEnabled(true);
+                            else
+                            {
+                                RadioButton item = popUpView.findViewById(itemGroupID);
+                                RadioButton season = popUpView.findViewById(seasonGroupID);
+                                resultFile += item.getText().toString();
+                                resultFile += season.getText().toString();
+                                capturePhoto();
+                                doneBtn.setEnabled(false);
                             }
-                        }
-                    });
-                    doneBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            capturePhoto();
+
                         }
                     });
 
@@ -227,34 +184,16 @@ public class CameraActivity extends AppCompatActivity {
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp);
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
         if (Build.VERSION.SDK_INT >= 29) {
-            System.out.println("In sdk int 29");
-
-//            /storage/emulated/0/Pictures/imageSaver
             contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/" + resultFile);
         }
-
         else {
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + resultFile);
-            if(!file.exists()){
-                System.out.println("File doesn't exist");
-            }
-//            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + "imageSaver";
             String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + resultFile;
-
 
             contentValues.put(MediaStore.Images.Media.DATA, path);
 
-        }
-//        String folder_main = "/storage/emulated/0/tempHolder/";
-//        File f = new File(folder_main);
-//        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + "imageSaver" + "img";
-//        contentValues.put(MediaStore.Images.Media.DATA,)
-//        if (f.exists()) {
-//                System.out.println("Successful");
-//        }
-//        else{
-//            System.out.println("not successful");
-//        }
+    }
+
 
         ContentResolver resolver = getContentResolver();
         imageCapture.takePicture(
@@ -271,8 +210,12 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                         Toast.makeText(CameraActivity.this, "Photo saved successfully", Toast.LENGTH_SHORT).show();
+                        //create pop ups to ask for season and item, based on answer...work w appropriate folder
+
+                        //add the saved image to the folder using contentValues
 
                     }
+
                     @Override
                     public void onError(@NonNull ImageCaptureException exception) {
                         Toast.makeText(CameraActivity.this, "Error saving photo: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
@@ -285,6 +228,8 @@ public class CameraActivity extends AppCompatActivity {
 
 
     }
+
+
 }
 
 

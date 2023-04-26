@@ -13,9 +13,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,6 +39,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private static final String[] CAMERA_PERMISSION = new String[]{android.Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
+    private boolean isPlaying = false;
 
     MaterialToolbar toolbar;
     @Override
@@ -44,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //adding music
+
+        ImageButton playPauseButton = findViewById(R.id.soundOn);
+        playPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying) {
+                    // Start playing the audio file
+                    stopService(new Intent(MainActivity.this, BackgroundMusicService.class));
+                    isPlaying = false;
+                    playPauseButton.setImageResource(android.R.drawable.ic_lock_silent_mode);
+                } else {
+                   startService(new Intent(MainActivity.this, BackgroundMusicService.class));
+                   isPlaying = true;
+                   playPauseButton.setImageResource(android.R.drawable.ic_lock_silent_mode_off);
+                }
+            }
+        });
 
         String File_Name= "tempImageHolder"; //gives file name
         String Data="Hello!!"; //define data
@@ -84,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -112,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private boolean hasCameraPermission() {
         return ContextCompat.checkSelfPermission(
                 this,
@@ -129,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void enableCamera() {
         Intent intent = new Intent(this, CameraActivity.class);
+        System.out.println("about to start camera activity");
         startActivity(intent);
     }
 
@@ -136,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+
     }
 
 }

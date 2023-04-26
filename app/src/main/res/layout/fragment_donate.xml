@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Closet">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/aestheticpinksky"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:alpha = "0.8"/>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"

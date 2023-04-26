@@ -79,20 +79,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/done"
+            android:backgroundTint="#A87680"
+            android:textSize ="30sp"
+            android:fontFamily = "sans-serif-thin"
+            android:textStyle="bold"
             android:layout_gravity="center_horizontal">
         </Button>
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:layout_marginTop="10dp">-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/go_back"-->
-<!--                    android:padding="5dp">-->
-<!--                </TextView>-->
-<!--            </RelativeLayout>-->
+
         </LinearLayout>
 </RelativeLayout>

@@ -3,16 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/help_button.xml" value="0.163" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_camera.xml" value="0.28541666666666665" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17291666666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3026453653971354" />
+        <entry key="app/src/main/res/layout/camerapopup.xml" value="0.20774078369140625" />
         <entry key="app/src/main/res/layout/clothing_view.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/donatepopup.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/layout/fragment_closet.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_donate.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_drawing_board.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_dress_me.xml" value="0.26979166666666665" />
-        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_help.xml" value="0.284375" />
+        <entry key="app/src/main/res/layout/fragment_help1.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.25611419677734376" />
         <entry key="app/src/main/res/layout/fragment_scrapbook.xml" value="0.1989456176757812" />
         <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/mainpopup.xml" value="0.16184971098265896" />
+        <entry key="app/src/main/res/menu/menu_toolbar.xml" value="0.23129251700680273" />
       </map>
     </option>
   </component>

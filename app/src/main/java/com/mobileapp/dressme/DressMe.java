@@ -65,6 +65,41 @@ public class DressMe extends Fragment {
         generate.setEnabled(false);
 
         //to disable button if no radio button is checked
+
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+        int id = radioGroup.getCheckedRadioButtonId();
+        if(id == -1){
+            generate.setEnabled(false);
+        }
+        final String[] resultFile = {""};
+        final boolean[] isSeasonChecked = {false};
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                            System.out.println("season");
+                switch(checkedId) {
+                    case R.id.SpringButton:
+                        resultFile[0] = "Spring";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.SummerButton:
+                        resultFile[0] = "Summer";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.FallButton:
+                        resultFile[0] = "Fall";
+                        isSeasonChecked[0] = true;
+                        break;
+                    case R.id.WinterButton:
+                        resultFile[0] = "Winter";
+                        isSeasonChecked[0] = true;
+                        break;
+                    default:
+                        resultFile[0] = "";
+                        isSeasonChecked[0] = false;
+                        break;
+                }
+
         RadioGroup seasonGroup = view.findViewById(R.id.radioGroup);
 //        int id = radioGroup.getCheckedRadioButtonId();
         seasonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -96,9 +131,13 @@ public class DressMe extends Fragment {
             }
         });
 
+            }
+        });
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//
+//
 //                shirt.setVisibility(view.VISIBLE);
 //                pants.setVisibility(view.VISIBLE);
                 File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
