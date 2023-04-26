@@ -4,17 +4,21 @@
     <item
         android:id="@+id/homeScreen"
         android:title="@string/home"
+        android:color = "#A87680"
         android:icon="@drawable/home" />
     <item
         android:id="@+id/closet"
         android:title="@string/closet"
+        android:color = "#A87680"
         android:icon="@drawable/dresser" />
     <item
         android:id="@+id/scrapbook"
         android:title="@string/scrapbook"
+        android:color = "#A87680"
         android:icon="@drawable/menu_book" />
     <item
         android:id="@+id/donate"
-        android:title="Donate"
+        android:title="@string/Donate"
+        android:color = "#A87680"
         android:icon="@drawable/volunteer" />
 </menu>

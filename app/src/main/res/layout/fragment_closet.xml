@@ -11,10 +11,12 @@
         android:id="@+id/gifView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:scaleType="centerCrop"
         android:src="@drawable/aestheticpinksky"
-        android:scaleType = "centerCrop"
-        android:alpha = "0.8"
-        />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-25dp" />
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
@@ -63,7 +65,7 @@
         android:id="@+id/drawBrdBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#A87680"
         android:fontFamily="sans-serif-thin"
         android:text="@string/send_to_drawing_board"
