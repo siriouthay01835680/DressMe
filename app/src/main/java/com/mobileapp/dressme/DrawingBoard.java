@@ -4,21 +4,20 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class DrawingBoard extends Fragment {
 
@@ -51,6 +50,40 @@ public class DrawingBoard extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(action);
+            }
+        });
+
+
+        ImageView trashBin = view.findViewById(R.id.trashbin);
+
+        trashBin.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                switch (event.getAction()) {
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        System.out.println("in drag entered");
+                        // Set the ImageView's background to indicate that it is a valid drop target
+                        //v.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_drag_target));
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        // Reset the ImageView's background
+                        System.out.println("in drag exited");
+                        v.setBackground(null);
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        // Retrieve the dragged image from the DragEvent
+                        ImageView imageView = (ImageView) event.getLocalState();
+                        System.out.println(imageView.getId());
+
+                        // Remove the image from the view hierarchy
+                        ViewGroup parent = (ViewGroup) imageView.getParent();
+                        parent.removeView(imageView);
+
+                        // Reset the ImageView's background
+                        v.setBackground(null);
+                        break;
+                }
+                return true;
             }
         });
 

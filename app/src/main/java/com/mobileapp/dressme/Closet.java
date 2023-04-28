@@ -2,30 +2,23 @@ package com.mobileapp.dressme;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
-
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -75,7 +68,7 @@ public class Closet extends Fragment {
         Button donateBtn = popUpView.findViewById(R.id.popUpDonate);
 
         sendDB = view.findViewById(R.id.drawBrdBtn);
-        Button refresh = view.findViewById(R.id.refreshBtn);
+       // Button refresh = view.findViewById(R.id.refreshBtn);
 
         LinearLayout shirtsLL = view.findViewById(R.id.shirtsLL);
         LinearLayout pantsLL = view.findViewById(R.id.pantsLL);
@@ -291,13 +284,13 @@ public class Closet extends Fragment {
         {
             if (new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + name).isDirectory())
             {
-                if(name.contains("top")){
+                if(name.contains("Top")){
                     allShirts.add(name);
 //                    if(name.contains(radioText)){
 //                        folderNames.add(name);
 //                    }
                 }
-                if(name.contains("bottom")){
+                if(name.contains("Bottom")){
                     allPants.add(name);
 //                    if(name.contains(radioText)){
 //                        folderNames.add(name);

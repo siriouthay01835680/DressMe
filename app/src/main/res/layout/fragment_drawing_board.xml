@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/drawingboardbackground" />
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -26,6 +27,17 @@
         app:layout_constraintVertical_bias="0.26">
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/trashbin"
+        android:layout_width="88dp"
+        android:layout_height="67dp"
+        android:background="@drawable/trashbin"
+        app:layout_constraintBottom_toBottomOf="@id/scrapButton"
+        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/scrapButton"
