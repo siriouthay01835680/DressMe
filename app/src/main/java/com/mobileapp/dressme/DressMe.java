@@ -35,7 +35,6 @@ public class DressMe extends Fragment {
 
     private DressMeViewModel mViewModel;
     Boolean isGenerated = false;
-    String radioText = "";
     ArrayList<String> folderNames = new ArrayList<String>();
     ArrayList<String> resultItems = new ArrayList<String>();
     ArrayList<String> resultShirts = new ArrayList<String>();
@@ -74,6 +73,8 @@ public class DressMe extends Fragment {
         File allFolders = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
         String[] folders = allFolders.list();
 //        System.out.println(Arrays.toString(folders));
+        seasonShirts.clear();
+        seasonPants.clear();
 
         for (int i = 0; i < folders.length; i++) {
             if(folders[i].contains("top")){
@@ -83,8 +84,8 @@ public class DressMe extends Fragment {
                 pantNames.add(folders[i]);
             }
         }
-//        System.out.println(shirtNames);
-//        System.out.println(pantNames);
+
+
 
 
         RadioGroup seasonGroup = view.findViewById(R.id.radioGroup);
@@ -92,12 +93,20 @@ public class DressMe extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 boolean canGenerate = false;
+                seasonShirts.clear();
+                seasonPants.clear();
+                String radioText = "";
                 switch(checkedId) {
                     case R.id.SpringButton:
                         radioText = "Spring";
-
                         canGenerate = canGenerate(radioText);
-                        System.out.println(canGenerate);
+//                        System.out.println(canGenerate);
+                        if(canGenerate) {
+                            generate.setEnabled(true);
+                        }
+                        else{
+                            generate.setEnabled(false);
+                        }
 //                        if()
 //                        generate.setEnabled(true);
                         break;
@@ -105,22 +114,35 @@ public class DressMe extends Fragment {
                         radioText = "Summer";
                         canGenerate = canGenerate(radioText);
                         System.out.println(canGenerate);
-
+                        if(canGenerate) {
+                            generate.setEnabled(true);
+                        }
+                        else{
+                            generate.setEnabled(false);
+                        }
 //                        generate.setEnabled(true);
                         break;
                     case R.id.FallButton:
                         radioText = "Fall";
                         canGenerate = canGenerate(radioText);
-                        System.out.println(canGenerate);
-
-//                        generate.setEnabled(true);
+                        if(canGenerate) {
+                            generate.setEnabled(true);
+                        }
+                        else{
+                            generate.setEnabled(false);
+                        }
+//                        System.out.println(canGenerate);
                         break;
                     case R.id.WinterButton:
                         radioText = "Winter";
                         canGenerate = canGenerate(radioText);
-                        System.out.println(canGenerate);
-
-//                        generate.setEnabled(true);
+                        if(canGenerate) {
+                            generate.setEnabled(true);
+                        }
+                        else{
+                            generate.setEnabled(false);
+                        }
+//                        System.out.println(canGenerate);
                         break;
                     default:
                         radioText = "";
@@ -128,12 +150,16 @@ public class DressMe extends Fragment {
                         break;
                 }
 
+
             }
+
         });
 
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("here " + seasonShirts);
+                System.out.println("here" + seasonPants);
 //
 //
 //                shirt.setVisibility(view.VISIBLE);
@@ -143,7 +169,7 @@ public class DressMe extends Fragment {
                 //read from file to pick random shirt/pant
                 //outline for randomizer
                 //for now have array of test img ids
-
+                layout.removeAllViewsInLayout();
                 resultItems= outfitGeneration(layout, folderNames, shirtNames, pantNames);
                 isGenerated = true;
                 scrapbookBtn.setEnabled(true);
@@ -189,17 +215,32 @@ public class DressMe extends Fragment {
     }
 
     private boolean canGenerate(String radioText) {
-        boolean res = false;
-        for(int i = 0; i < shirtNames.size()-1; i++){
-            for(int j = 0; j < pantNames.size()-1; j++){
-                if(shirtNames.get(i).contains(radioText) && pantNames.get(j).contains(radioText)){
-                    seasonShirts.add(shirtNames.get(i));
-                    seasonShirts.add(pantNames.get(j));
-                    res = true;
-                }
+        boolean shirtRes = false;
+        boolean pantRes = false;
+//        System.out.println(shirtNames);
+//        System.out.println(pantNames);
+
+        for(int i = 0; i < shirtNames.size(); i++){
+//                    System.out.println(shirtNames.get(i));
+            if(shirtNames.get(i).contains(radioText)){
+                seasonShirts.add(shirtNames.get(i));
+                shirtRes = true;
             }
         }
-        return res;
+        for(int i = 0; i < pantNames.size(); i++){
+//            System.out.println(pantNames.get(i));
+            if(pantNames.get(i).contains(radioText)){
+                seasonPants.add(pantNames.get(i));
+//                System.out.println(seasonPants);
+                pantRes = true;
+            }
+        }
+        if(shirtRes && pantRes){
+            return true;
+        }
+
+//            && pantNames.get(j).contains(radioText)
+        return false;
 
     }
 
@@ -218,13 +259,16 @@ public class DressMe extends Fragment {
 //        Random pantRand = new Random();
 //        String randShirt = shirtIds[1];
 //        String randPants = pantsIds[0];
-        int shirtIndex = (int)(Math.random() * shirtNames.size());
-        int pantIndex = (int)(Math.random() * pantNames.size());
-//        System.out.println(shirtNames.get(shirtIndex));
-//        System.out.println(pantNames.get(pantIndex));
+        int shirtIndex = (int)(Math.random() * seasonShirts.size());
+        int pantIndex = (int)(Math.random() * seasonPants.size());
+//        System.out.println("index " + seasonShirts.get(shirtIndex));
+//        System.out.println("index " + seasonPants.get(pantIndex));
+//        System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex));
+//        System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex));
 
-        File shirtFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirtNames.get(shirtIndex));
-        File pantFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + pantNames.get(pantIndex));
+
+        File shirtFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex));
+        File pantFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex));
 
 //                if(shirtFile.exists()){
 //                    System.out.println("file1 exists");
@@ -235,8 +279,8 @@ public class DressMe extends Fragment {
 
         String[] names1 = shirtFile.list();
         String[] names2 = pantFile.list();
-//        System.out.println(Arrays.toString(names1));
-//        System.out.println(Arrays.toString(names2));
+        System.out.println("arr " + Arrays.toString(names1));
+        System.out.println("arr " + Arrays.toString(names2));
         int randShirtIndex = (int)(Math.random() * names1.length);
         int randPantIndex = (int)(Math.random() * names2.length);
 //        System.out.println(randShirtIndex);
@@ -245,7 +289,7 @@ public class DressMe extends Fragment {
 //        System.out.println(shirtIndex);
 //        System.out.println(pantIndex);
 
-//        dynamically create new imageview w/ clothing image
+////        dynamically create new imageview w/ clothing image
         ImageView img = new ImageView(layout.getContext());
         int id = 100;
         img.setId(id);
@@ -256,7 +300,7 @@ public class DressMe extends Fragment {
 //                System.out.println(shirtIds[0]);
 //                img.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(randShirt, "drawable", "com.mobileapp.dressme")));
 //    System.out.println(names1[shirtIndex]);
-        Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirtNames.get(shirtIndex) + "/" + names1[randShirtIndex]);
+        Bitmap myBitmap = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex) + "/" + names1[randShirtIndex]);
         img.setImageBitmap(myBitmap);
 //        img.setImageDrawable(getResources().getDrawable(resId));
         layout.addView(img);
@@ -270,7 +314,7 @@ public class DressMe extends Fragment {
 //                System.out.println(shirtIds[0]);
 //                img.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(randShirt, "drawable", "com.mobileapp.dressme")));
 //    System.out.println(names1[shirtIndex]);
-        Bitmap myBitmap1 = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + pantNames.get(pantIndex) + "/" + names2[randPantIndex]);
+        Bitmap myBitmap1 = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex) + "/" + names2[randPantIndex]);
         img1.setImageBitmap(myBitmap1);
 //        img.setImageDrawable(getResources().getDrawable(resId));
         layout.addView(img1);
@@ -284,8 +328,8 @@ public class DressMe extends Fragment {
 //        img1.setImageDrawable(getResources().getDrawable(resId));
 //        layout.addView(img1);
         ArrayList<String> result = new ArrayList<String>();
-        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirtNames.get(shirtIndex) + "/" + names1[randShirtIndex]);
-        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + pantNames.get(pantIndex) + "/" + names2[randPantIndex]);
+        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex) + "/" + names1[randShirtIndex]);
+        result.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex) + "/" + names2[randPantIndex]);
 //        String[] result = {randShirt, randPants};
         return result;
     }
