@@ -24,6 +24,8 @@
             android:text="Capture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom" />
+            android:layout_marginLeft = "154dp"
+            android:backgroundTint="#A87680"
+            android:layout_gravity="center|bottom" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
