@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,7 +52,8 @@ public class DrawingBoard extends Fragment {
             }
         });
 
-
+///implement trashbin
+        /*
         ImageView trashBin = view.findViewById(R.id.trashbin);
 
         trashBin.setOnDragListener(new View.OnDragListener() {
@@ -85,7 +85,7 @@ public class DrawingBoard extends Fragment {
                 }
                 return true;
             }
-        });
+        }); */
 
         return view;
     }
