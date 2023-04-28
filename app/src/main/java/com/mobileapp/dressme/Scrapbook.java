@@ -40,8 +40,8 @@ public class Scrapbook extends Fragment {
     Map<Integer, String> hm = new HashMap<Integer, String>();
     CardView cardview;
 //    RelativeLayout rl;
-String[] shirt;
-String[] pants;
+    String[] shirt;
+    String[] pants;
 
     public static Scrapbook newInstance() {
         return new Scrapbook();
@@ -62,7 +62,7 @@ String[] pants;
             shirt = ScrapbookArgs.fromBundle(getArguments()).getDbShirts();
             pants = ScrapbookArgs.fromBundle(getArguments()).getDbPants();
             GridLayout gridLayout = view.findViewById(R.id.gridLayout);
-            for(int i = 0; i < gridLayout.getChildCount(); i++){
+            for (int i = 0; i < gridLayout.getChildCount(); i++) {
                 View childView = gridLayout.getChildAt(i);
                 if (childView instanceof CardView) {
                     CardView cardView = (CardView) childView;
@@ -71,7 +71,18 @@ String[] pants;
                 }
             }
 
-
+            if (!(ScrapbookArgs.fromBundle(getArguments()).getShirt() == null) && !(ScrapbookArgs.fromBundle(getArguments()).getPants() == null)) {
+                shirt = ScrapbookArgs.fromBundle(getArguments()).getDbShirts();
+                pants = ScrapbookArgs.fromBundle(getArguments()).getDbPants();
+                gridLayout = view.findViewById(R.id.gridLayout);
+                for (int i = 0; i < gridLayout.getChildCount(); i++) {
+                    View childView = gridLayout.getChildAt(i);
+                    if (childView instanceof CardView) {
+                        CardView cardView = (CardView) childView;
+                        cardView.setCardBackgroundColor(Color.YELLOW);
+                        iterateRelativeLayouts(cardView);
+                    }
+                }
 
 
 //            RelativeLayout relativeLayout1 = view.findViewById(R.id.relativeLayout1);
@@ -97,29 +108,31 @@ String[] pants;
 
 //            relativeLayout1.
 
-            //save map to shared pref to keep imgs & their grids
+                //save map to shared pref to keep imgs & their grids
 
-            //display shirts and bottom to a cardview
+                //display shirts and bottom to a cardview
 
+
+            }
 
         }
         return view;
     }
 
-    private void iterateRelativeLayouts(ViewGroup parent) {
-        for (int i = 0; i < parent.getChildCount(); i++) {
-            View childView = parent.getChildAt(i);
-            if (childView instanceof RelativeLayout) {
-                RelativeLayout relativeLayout = (RelativeLayout) childView;
-                // Do something with the RelativeLayout
-                // For example, you can iterate through its child views using a nested loop
-                String tag = (String) relativeLayout.getTag();
-                Boolean found = false;
+        private void iterateRelativeLayouts (ViewGroup parent){
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View childView = parent.getChildAt(i);
+                if (childView instanceof RelativeLayout) {
+                    RelativeLayout relativeLayout = (RelativeLayout) childView;
+                    // Do something with the RelativeLayout
+                    // For example, you can iterate through its child views using a nested loop
+                    String tag = (String) relativeLayout.getTag();
+                    Boolean found = false;
 //                if (layout2.getChildCount() == 0) {
 //////            System.out.println("no children");
 //////        }
-                //tag.contains("empty")
-                if (relativeLayout.getChildCount() == 0) {
+                    //tag.contains("empty")
+                    if (relativeLayout.getChildCount() == 0) {
 //                    for (int j = 0; j < shirt.length; j++) {
                         found = true;
 //                        System.out.println("here in rel");
@@ -153,18 +166,16 @@ String[] pants;
 //                        System.out.println((String)relativeLayout.getTag());
 //                        return;
 //                    }
-                }
-                else{
-                    System.out.println("here, full");
-                }
-                if(found){
-                    break;
-                }
-                else if (childView instanceof ViewGroup) {
+                    } else {
+                        System.out.println("here, full");
+                    }
+                    if (found) {
+                        break;
+                    } else if (childView instanceof ViewGroup) {
 //                    /System.out
-                    iterateRelativeLayouts((ViewGroup) childView);
+                        iterateRelativeLayouts((ViewGroup) childView);
+                    }
                 }
             }
         }
-    }
 }
