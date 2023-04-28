@@ -40,7 +40,12 @@ public class DressMe extends Fragment {
     ArrayList<String> resultItems = new ArrayList<String>();
     ArrayList<String> resultShirts = new ArrayList<String>();
     ArrayList<String> resultPants = new ArrayList<String>();
+    String resultFile = "";
+    ArrayList<String> shirtNames = new ArrayList<String>();
+    ArrayList<String> pantNames = new ArrayList<String>();
 
+    ArrayList<String> seasonShirts = new ArrayList<String>();
+    ArrayList<String> seasonPants = new ArrayList<String>();
 
 
     public static DressMe newInstance() {
@@ -55,7 +60,6 @@ public class DressMe extends Fragment {
         Button generate = view.findViewById(R.id.generateBtn);
 //        ImageView shirt = view.findViewById(R.id.genShirt);
 //        ImageView pants = view.findViewById(R.id.genPant);
-
         LinearLayout layout = view.findViewById(R.id.imgLayout);
         Button regenerate = view.findViewById(R.id.regenerateBtn);
 //        final String[][] resultItems = new String[1][1];
@@ -66,75 +70,67 @@ public class DressMe extends Fragment {
         regenerate.setEnabled(false);
         generate.setEnabled(false);
 
-        //to disable button if no radio button is checked
 
-        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
-        int id = radioGroup.getCheckedRadioButtonId();
-        if(id == -1){
-            generate.setEnabled(false);
+        File allFolders = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
+        String[] folders = allFolders.list();
+//        System.out.println(Arrays.toString(folders));
+
+        for (int i = 0; i < folders.length; i++) {
+            if(folders[i].contains("top")){
+                shirtNames.add(folders[i]);
+            }
+            else if(folders[i].contains("bottom")){
+                pantNames.add(folders[i]);
+            }
         }
-        final String[] resultFile = {""};
-        final boolean[] isSeasonChecked = {false};
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                            System.out.println("season");
-                switch(checkedId) {
-                    case R.id.SpringButton:
-                        resultFile[0] = "Spring";
-                        isSeasonChecked[0] = true;
-                        break;
-                    case R.id.SummerButton:
-                        resultFile[0] = "Summer";
-                        isSeasonChecked[0] = true;
-                        break;
-                    case R.id.FallButton:
-                        resultFile[0] = "Fall";
-                        isSeasonChecked[0] = true;
-                        break;
-                    case R.id.WinterButton:
-                        resultFile[0] = "Winter";
-                        isSeasonChecked[0] = true;
-                        break;
-                    default:
-                        resultFile[0] = "";
-                        isSeasonChecked[0] = false;
-                        break;
-                }
+//        System.out.println(shirtNames);
+//        System.out.println(pantNames);
+
 
         RadioGroup seasonGroup = view.findViewById(R.id.radioGroup);
-//        int id = radioGroup.getCheckedRadioButtonId();
         seasonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                boolean canGenerate = false;
                 switch(checkedId) {
                     case R.id.SpringButton:
                         radioText = "Spring";
-                        System.out.println("season");
-                        generate.setEnabled(true);
+
+                        canGenerate = canGenerate(radioText);
+                        System.out.println(canGenerate);
+//                        if()
+//                        generate.setEnabled(true);
                         break;
                     case R.id.SummerButton:
                         radioText = "Summer";
-                        generate.setEnabled(true);
+                        canGenerate = canGenerate(radioText);
+                        System.out.println(canGenerate);
+
+//                        generate.setEnabled(true);
                         break;
                     case R.id.FallButton:
                         radioText = "Fall";
-                        generate.setEnabled(true);
+                        canGenerate = canGenerate(radioText);
+                        System.out.println(canGenerate);
+
+//                        generate.setEnabled(true);
                         break;
                     case R.id.WinterButton:
                         radioText = "Winter";
-                        generate.setEnabled(true);
+                        canGenerate = canGenerate(radioText);
+                        System.out.println(canGenerate);
+
+//                        generate.setEnabled(true);
                         break;
                     default:
-                       radioText = "";
+                        radioText = "";
+                        canGenerate = false;
                         break;
                 }
 
             }
         });
 
-            }
-        });
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,31 +138,13 @@ public class DressMe extends Fragment {
 //
 //                shirt.setVisibility(view.VISIBLE);
 //                pants.setVisibility(view.VISIBLE);
-                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
-//                if(file.exists()){
-////                    System.out.println("file exists");
-//                }
-//                System.out.println(radioText);
 
-                String[] names = file.list();
-//                System.out.println(Arrays.toString(file.list()));
-                for(String name : names)
-                {
-                    if (new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + name).isDirectory())
-                    {
-                        if(name.contains("top") || name.contains("bottom")){
-                            if(name.contains(radioText)){
-                                folderNames.add(name);
-                            }
-                        }
-                    }
-                }
 //                System.out.println(folderNames);
                 //read from file to pick random shirt/pant
                 //outline for randomizer
                 //for now have array of test img ids
 
-                resultItems= outfitGeneration(layout, folderNames);
+                resultItems= outfitGeneration(layout, folderNames, shirtNames, pantNames);
                 isGenerated = true;
                 scrapbookBtn.setEnabled(true);
                 regenerate.setEnabled(true);
@@ -174,6 +152,7 @@ public class DressMe extends Fragment {
 
             }
         });
+
         regenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,16 +162,17 @@ public class DressMe extends Fragment {
                 //outline for randomizer
                 //for now have array of test img ids
                 layout.removeAllViewsInLayout();
-                resultItems = (outfitGeneration(layout, folderNames));
+                resultItems = (outfitGeneration(layout, folderNames, shirtNames, pantNames));
 
             }
         });
+
         scrapbookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook();
-                String[] resArr = new String[resultItems.size()];
-                resArr = resultItems.toArray(resArr);
+//                String[] resArr = new String[resultItems.size()];
+//                resArr = resultItems.toArray(resArr);
                 String [] shirt = {resultItems.get(0)};
                 String [] pant = {resultItems.get(1)};
                 action.setShirt(shirt);
@@ -201,33 +181,36 @@ public class DressMe extends Fragment {
             }
         });
 
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                    generate.setEnabled(true);
-//            }
-//        });
 
 
 
 
         return view;
     }
-    public ArrayList<String> outfitGeneration(LinearLayout layout, ArrayList<String>folderNames){
+
+    private boolean canGenerate(String radioText) {
+        boolean res = false;
+        for(int i = 0; i < shirtNames.size()-1; i++){
+            for(int j = 0; j < pantNames.size()-1; j++){
+                if(shirtNames.get(i).contains(radioText) && pantNames.get(j).contains(radioText)){
+                    seasonShirts.add(shirtNames.get(i));
+                    seasonShirts.add(pantNames.get(j));
+                    res = true;
+                }
+            }
+        }
+        return res;
+
+    }
+
+    public ArrayList<String> outfitGeneration(LinearLayout layout, ArrayList<String>folderNames,ArrayList<String>shirtNames, ArrayList<String>pantNames) {
         //these should be read from file or tags
 //        String[] shirtIds = {"orangeshirt", "testshirt"};
 //        String[] pantsIds = {"testpants"};
-        ArrayList<String> shirtNames = new ArrayList<String>();
-        ArrayList<String> pantNames = new ArrayList<String>();
+//        ArrayList<String> shirtNames = new ArrayList<String>();
+//        ArrayList<String> pantNames = new ArrayList<String>();
 
-        for (int i = 0; i < folderNames.size(); i++) {
-            if(folderNames.get(i).contains("top")){
-                shirtNames.add(folderNames.get(i));
-            }
-            else{
-                pantNames.add(folderNames.get(i));
-            }
-        }
+
 //        System.out.println(shirtNames);
 //        System.out.println(pantNames);
 
