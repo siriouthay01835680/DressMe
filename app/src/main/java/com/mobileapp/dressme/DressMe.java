@@ -77,10 +77,10 @@ public class DressMe extends Fragment {
         seasonPants.clear();
 
         for (int i = 0; i < folders.length; i++) {
-            if(folders[i].contains("top")){
+            if(folders[i].contains("Top")){
                 shirtNames.add(folders[i]);
             }
-            else if(folders[i].contains("bottom")){
+            else if(folders[i].contains("Bottom")){
                 pantNames.add(folders[i]);
             }
         }
