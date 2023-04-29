@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Donate extends Fragment {
-    
+
     Boolean isShirtClicked = false;
     Boolean isPantClicked = false;
     ArrayList<String> allShirts = new ArrayList<>();
