@@ -170,7 +170,7 @@ public class DressMe extends Fragment {
                 //outline for randomizer
                 //for now have array of test img ids
                 layout.removeAllViewsInLayout();
-                resultItems= outfitGeneration(layout, folderNames, shirtNames, pantNames);
+                resultItems = outfitGeneration(layout, folderNames, shirtNames, pantNames);
                 isGenerated = true;
                 scrapbookBtn.setEnabled(true);
                 regenerate.setEnabled(true);
@@ -189,6 +189,7 @@ public class DressMe extends Fragment {
                 //for now have array of test img ids
                 layout.removeAllViewsInLayout();
                 resultItems = (outfitGeneration(layout, folderNames, shirtNames, pantNames));
+//                System.out.println("res: " + resultItems);
 
             }
         });
@@ -199,8 +200,12 @@ public class DressMe extends Fragment {
                 DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook();
 //                String[] resArr = new String[resultItems.size()];
 //                resArr = resultItems.toArray(resArr);
-                String [] shirt = {resultItems.get(0)};
-                String [] pant = {resultItems.get(1)};
+                String [] shirt;
+                String [] pant;
+                shirt = new String[]{resultItems.get(0)};
+                pant = new String[]{resultItems.get(1)};
+//               System.out.println("items " + Arrays.toString(shirt));
+
                 action.setShirt(shirt);
                 action.setPants(pant);
                 Navigation.findNavController(view).navigate(action);

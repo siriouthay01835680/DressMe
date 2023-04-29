@@ -37,7 +37,8 @@
     <fragment
         android:id="@+id/donate"
         android:name="com.mobileapp.dressme.Donate"
-        android:label="Donate" >
+        android:label="Donate"
+        tools:layout="@layout/fragment_donate">
         <action
             android:id="@+id/action_donate_to_closet"
             app:destination="@id/closet" />

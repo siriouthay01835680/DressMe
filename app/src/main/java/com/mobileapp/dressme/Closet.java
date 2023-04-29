@@ -202,7 +202,11 @@ public class Closet extends Fragment {
             public void onClick(View v) {
                 ImageView popUpImg = popUpView.findViewById(R.id.popupImg);
                 String tag = (String) popUpImg.getTag();
+//                System.out.println("tag " + tag);
                 ImageView donateImg = shirtsLL.findViewWithTag(tag);
+                if(donateImg == null){
+                    donateImg = pantsLL.findViewWithTag(tag);
+                }
                 donateImg.setVisibility(View.GONE);
                 ClosetDirections.ActionClosetToDonate action = ClosetDirections.actionClosetToDonate();
                 action.setResult(tag);
@@ -291,13 +295,13 @@ public class Closet extends Fragment {
         {
             if (new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + name).isDirectory())
             {
-                if(name.contains("top")){
+                if(name.contains("Top")){
                     allShirts.add(name);
 //                    if(name.contains(radioText)){
 //                        folderNames.add(name);
 //                    }
                 }
-                if(name.contains("bottom")){
+                if(name.contains("Bottom")){
                     allPants.add(name);
 //                    if(name.contains(radioText)){
 //                        folderNames.add(name);
@@ -330,6 +334,7 @@ public class Closet extends Fragment {
                 img.setLayoutParams(lp);
                 String imgPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + allShirts.get(i) + "/" + name;
                 img.setTag(imgPath);
+                //System.out.println("str " + imgPath);
 
 //
 //                img.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));

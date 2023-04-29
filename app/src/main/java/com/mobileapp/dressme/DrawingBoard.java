@@ -78,7 +78,7 @@ public class DrawingBoard extends Fragment {
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        System.out.println("touch");
+//                        System.out.println("touch");
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
                             x = event.getRawX();
                             y = event.getRawY();
