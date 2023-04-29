@@ -120,8 +120,6 @@ public class CameraActivity extends AppCompatActivity {
                     RadioGroup radioSeason = popUpView.findViewById(R.id.radioSeason);
 
                     doneBtn.setOnClickListener(new View.OnClickListener() {
-
-
                         public void onClick(View v) {
                             resultFile = "";
                             itemGroupID = radioItems.getCheckedRadioButtonId();
@@ -130,7 +128,7 @@ public class CameraActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(CameraActivity.this, "Please select a clothing item and season", Toast.LENGTH_SHORT).show();
 
-                        }
+                            }
 //
 //                    radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //                        @Override
@@ -166,6 +164,7 @@ public class CameraActivity extends AppCompatActivity {
                                 resultFile += season.getText().toString();
                                 capturePhoto();
                                 doneBtn.setEnabled(false);
+                                popupWindow.dismiss();
                             }
 
                         }

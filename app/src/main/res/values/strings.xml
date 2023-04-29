@@ -37,4 +37,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Refresh">refresh</string>
     <string name="Donate">Donate</string>
+    <string name="would_you_like_to_delete_this_outfit">Would you like to delete this outfit?</string>
+    <string name="go_to_drawing_board">Go to Drawing Board</string>
+    <string name="no_items_in_drawing_board_yet">No items in Drawing Board yet!</string>
 </resources>

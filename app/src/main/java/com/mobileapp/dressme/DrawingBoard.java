@@ -13,10 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import android.view.MotionEvent;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 
 public class DrawingBoard extends Fragment {
 
@@ -24,6 +31,7 @@ public class DrawingBoard extends Fragment {
 
     float x, y;
     float dx, dy;
+    Button scrapBtn;
     public static DrawingBoard newInstance() {
         return new DrawingBoard();
     }
@@ -37,13 +45,21 @@ public class DrawingBoard extends Fragment {
         String[] shirts = DrawingBoardArgs.fromBundle(getArguments()).getShirts();
         String[] pants = DrawingBoardArgs.fromBundle(getArguments()).getPants();
         LinearLayout layout = view.findViewById(R.id.linearLayout);
-        displayItems(shirts, pants, layout);
+        scrapBtn = view.findViewById(R.id.scrapButton);
+
+        if(shirts != null && pants != null){
+            displayItems(shirts, pants, layout);
+        }
+        else{
+            TextView noItems = view.findViewById(R.id.noItems);
+            noItems.setVisibility(View.VISIBLE);
+            scrapBtn.setEnabled(false);
+        }
 
         DrawingBoardDirections.ActionDrawingBoardToScrapbook action = DrawingBoardDirections.actionDrawingBoardToScrapbook();
         action.setDbShirts(shirts);
         action.setDbPants(pants);
 
-        Button scrapBtn = view.findViewById(R.id.scrapButton);
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +99,7 @@ public class DrawingBoard extends Fragment {
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        System.out.println("touch");
+//                        System.out.println("touch");
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
                             x = event.getRawX();
                             y = event.getRawY();
@@ -179,11 +195,9 @@ public class DrawingBoard extends Fragment {
             }
 
         }
-        if(shirts.length == 0 && pants.length == 0){
-            TextView txt = new TextView(layout.getContext());
-            txt.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,500));
-            txt.setText("No clothing items, try heading to your closet to get started!");
-            layout.addView(txt);
+        if(shirts.length > 1 && pants.length > 1){
+            Toast.makeText(getContext(), "You can only send one top and bottom to the Scrapbook.", Toast.LENGTH_LONG).show();
+            scrapBtn.setEnabled(false);
         }
     }
 
