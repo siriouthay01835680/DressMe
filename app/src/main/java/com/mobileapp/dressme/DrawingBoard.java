@@ -4,24 +4,21 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.view.MotionEvent;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class DrawingBoard extends Fragment {
 
@@ -39,7 +36,6 @@ public class DrawingBoard extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_drawing_board,
                 container, false);
-
 
         String[] shirts = DrawingBoardArgs.fromBundle(getArguments()).getShirts();
         String[] pants = DrawingBoardArgs.fromBundle(getArguments()).getPants();
@@ -66,17 +62,23 @@ public class DrawingBoard extends Fragment {
             }
         });
 
+
+
+
+// Helper function to check if two views are overlapping at a given location
+
         return view;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     public void displayItems(String[] shirts, String[] pants, LinearLayout layout){
         //change to switch
+
         LinearLayout.LayoutParams lp =  new LinearLayout.LayoutParams(500,500);
         if(shirts.length != 0){
             for(int i = 0; i < shirts.length; i++){
 //                System.out.println("here1");
-                //dynamically create new imageview w/ clothing image
+//                dynamically create new imageview w/ clothing image
                 ImageView img = new ImageView(layout.getContext());
                 int id = 200 + i;
                 img.setId(id);
@@ -84,6 +86,7 @@ public class DrawingBoard extends Fragment {
                 Bitmap myBitmap = BitmapFactory.decodeFile(shirts[i]);
                 img.setImageBitmap(myBitmap);
                 img.setRotation(90);
+                img.setTag("view_to_delete");
                 layout.addView(img);
 
                 img.setOnTouchListener(new View.OnTouchListener() {
@@ -94,6 +97,22 @@ public class DrawingBoard extends Fragment {
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
                             x = event.getRawX();
                             y = event.getRawY();
+                            System.out.println(x);
+                            System.out.println(y);
+
+                            return true;
+                        }
+                        if(event.getAction() == MotionEvent.ACTION_UP){
+                            x = event.getRawX();
+                            y = event.getRawY();
+                            System.out.println(x);
+                            System.out.println(y);
+
+                            if((x >= 1055 && x <= 1360) && (y >= 1500 && y <= 2240))
+                            {
+                                layout.removeView(img);
+                            }
+
                             return true;
                         }
                         if(event.getAction() == MotionEvent.ACTION_MOVE){
@@ -105,6 +124,7 @@ public class DrawingBoard extends Fragment {
 
                             x = event.getRawX();
                             y = event.getRawY();
+
                             return true;
                         }
                         return false;
@@ -122,6 +142,7 @@ public class DrawingBoard extends Fragment {
                 Bitmap myBitmap = BitmapFactory.decodeFile(pants[i]);
                 img.setImageBitmap(myBitmap);
                 img.setRotation(90);
+                img.setTag("view_to_delete");
                 layout.addView(img);
                 img.setOnTouchListener(new View.OnTouchListener() {
                     @SuppressLint("ClickableViewAccessibility")
@@ -131,7 +152,23 @@ public class DrawingBoard extends Fragment {
                         if(event.getAction() == MotionEvent.ACTION_DOWN){
                             x = event.getRawX();
                             y = event.getRawY();
+
+                            System.out.println(x);
+                            System.out.println(y);
+
                             return true;
+                        }
+                        if(event.getAction() == MotionEvent.ACTION_UP){
+                            x = event.getRawX();
+                            y = event.getRawY();
+                            System.out.println(x);
+                            System.out.println(y);
+
+                            if((x >= 1055 && x <= 1360) && (y >= 1500 && y <= 2240))
+                            {
+                                layout.removeView(img);
+                            }
+
                         }
                         if(event.getAction() == MotionEvent.ACTION_MOVE){
                             dx = event.getRawX() - x;
@@ -142,6 +179,7 @@ public class DrawingBoard extends Fragment {
 
                             x = event.getRawX();
                             y = event.getRawY();
+
                             return true;
                         }
                         return false;
