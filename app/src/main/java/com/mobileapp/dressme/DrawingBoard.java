@@ -12,17 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
-import android.view.MotionEvent;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 
 public class DrawingBoard extends Fragment {
@@ -80,7 +75,6 @@ public class DrawingBoard extends Fragment {
         //change to switch
 
         LinearLayout.LayoutParams lp =  new LinearLayout.LayoutParams(500,500);
-        ImageView trashbin = getView().findViewById(R.id.trashbin);
         if(shirts.length != 0){
             for(int i = 0; i < shirts.length; i++){
 //                System.out.println("here1");
@@ -116,7 +110,6 @@ public class DrawingBoard extends Fragment {
 
                             if((x >= 1055 && x <= 1360) && (y >= 1500 && y <= 2240))
                             {
-                                trashbin.setImageResource(R.drawable.trashbin);
                                 layout.removeView(img);
                             }
 
