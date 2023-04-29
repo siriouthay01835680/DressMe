@@ -13,6 +13,7 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //NOTHING IS DONE IN THIS FRAGMENT
         return inflater.inflate(R.layout.fragment_help, container, false);
     }
 }
