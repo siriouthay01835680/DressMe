@@ -144,7 +144,7 @@ public class Closet extends Fragment {
                     String[] shirtArr = new String[resultShirts.size()];
                     shirtArr = resultShirts.toArray(shirtArr);
                     String[] pantArr = new String[resultPants.size()];
-                    pantArr = resultShirts.toArray(pantArr);
+                    pantArr = resultPants.toArray(pantArr);
                     actionDB.setShirts(shirtArr);
                     actionDB.setPants(pantArr);
                 }
