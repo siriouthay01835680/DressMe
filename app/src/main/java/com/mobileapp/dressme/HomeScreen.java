@@ -15,7 +15,6 @@ import androidx.navigation.Navigation;
 
 public class HomeScreen extends Fragment {
 
-    private HomeScreenViewModel mViewModel;
 
     public static HomeScreen newInstance() {
         return new HomeScreen();

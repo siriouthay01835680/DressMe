@@ -22,9 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.gridlayout.widget.GridLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,10 +30,6 @@ import java.util.Objects;
 
 public class Scrapbook extends Fragment {
 
-    private ScrapbookViewModel mViewModel;
-    private RecyclerView recyclerView;
-    private scrapbookAdapter adapter;
-    private ArrayList<scrapbookModel> arrayList = new ArrayList<>();
     Map<Integer, String> hm = new HashMap<Integer, String>();
     CardView cardview;
     String[] shirt;

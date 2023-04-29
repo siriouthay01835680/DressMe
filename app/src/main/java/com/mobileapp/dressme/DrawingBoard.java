@@ -26,7 +26,6 @@ import java.util.List;
 
 public class DrawingBoard extends Fragment {
 
-    private DrawingBoardViewModel mViewModel;
 
     float x, y;
     float dx, dy;

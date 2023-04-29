@@ -1,11 +1,9 @@
 package com.mobileapp.dressme;
 
 //import static android.support.v4.media.session.MediaControllerCompatApi21.getPackageName;
-import static android.view.View.VISIBLE;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -22,18 +20,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class DressMe extends Fragment {
 
-    private DressMeViewModel mViewModel;
     Boolean isGenerated = false;
     ArrayList<String> folderNames = new ArrayList<String>();
     ArrayList<String> resultItems = new ArrayList<String>();

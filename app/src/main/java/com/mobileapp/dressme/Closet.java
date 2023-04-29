@@ -2,10 +2,6 @@ package com.mobileapp.dressme;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import android.media.Image;
-import android.os.Build;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
@@ -29,7 +25,6 @@ import java.util.ArrayList;
 
 public class Closet extends Fragment {
 
-    private ClosetViewModel mViewModel;
     String[] shirts = {};
     String[] pants = {};
     ClosetDirections.ActionClosetToDrawingBoard actionDB;
