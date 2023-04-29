@@ -2,6 +2,7 @@ package com.mobileapp.dressme;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -75,22 +76,14 @@ public class Closet extends Fragment {
         Button donateBtn = popUpView.findViewById(R.id.popUpDonate);
 
         sendDB = view.findViewById(R.id.drawBrdBtn);
-        Button refresh = view.findViewById(R.id.refreshBtn);
 
         LinearLayout shirtsLL = view.findViewById(R.id.shirtsLL);
         LinearLayout pantsLL = view.findViewById(R.id.pantsLL);
 
-        //disable send to drawing board btn if no shirt & pant is not already sent
-        sendDB.setEnabled(false);
+        resultShirts.clear();
+        resultPants.clear();
 
 
-        //implement refresh function to check folders and update accordingly,
-        //should follow this following outline:
-
-        //read from all files that contain tops
-
-
-        //refresh closet
         
        getCloset(shirtsLL, pantsLL);
 //        System.out.println(allShirts);
@@ -136,16 +129,30 @@ public class Closet extends Fragment {
 //                }
 //            }
 //        });
+        actionDB = ClosetDirections.actionClosetToDrawingBoard();
 
         drawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ImageView img = popUpView.findViewById(R.id.popupImg);
+                String tag = (String) img.getTag();
+                if(tag.contains("Top") && !resultShirts.contains(tag)){
+                    resultShirts.add(tag);
+                }
+                else if(tag.contains("Bottom") && !resultPants.contains(tag)){
+                    resultPants.add(tag);
+                }
                 if(resultShirts.size() != 0 && resultPants.size() != 0){
                     String[] shirtArr = new String[resultShirts.size()];
                     shirtArr = resultShirts.toArray(shirtArr);
                     String[] pantArr = new String[resultPants.size()];
                     pantArr = resultShirts.toArray(pantArr);
-                    actionDB = ClosetDirections.actionClosetToDrawingBoard(shirtArr, pantArr);
+                    actionDB.setShirts(shirtArr);
+                    actionDB.setPants(pantArr);
+                }
+                else{
+                    Toast.makeText(getContext(), "Make sure at least one top and bottom are sent to the Drawing Board", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -153,6 +160,8 @@ public class Closet extends Fragment {
             @Override
             public void onClick(View v) {
                 clickedImgs.clear();
+                resultShirts.clear();
+                resultPants.clear();
                 Navigation.findNavController(view).navigate(actionDB);
 
             }
@@ -178,7 +187,7 @@ public class Closet extends Fragment {
                     if(deleteFile.delete()){
                         Toast.makeText(getContext(), "Item deleted successfully", Toast.LENGTH_SHORT).show();
 //                        getCloset(shirtsLL, pantsLL);
-                            ImageView img = clickedImgs.get(0);
+                            ImageView img = clickedImgs.get(clickedImgs.size()-1);
                             img.setVisibility(View.GONE);
                            clickedImgs.clear();
                     }
@@ -207,7 +216,7 @@ public class Closet extends Fragment {
                 if(donateImg == null){
                     donateImg = pantsLL.findViewWithTag(tag);
                 }
-                donateImg.setVisibility(View.GONE);
+//                donateImg.setVisibility(View.GONE);
                 ClosetDirections.ActionClosetToDonate action = ClosetDirections.actionClosetToDonate();
                 action.setResult(tag);
                 Navigation.findNavController(view).navigate(action);
@@ -350,11 +359,8 @@ public class Closet extends Fragment {
                     public void onClick(View v) {
                         displayPopUp(myBitmap, imgPath);
                         clickedImgs.add((ImageView) v);
-                        isShirtClicked = true;
-                        resultShirts.add(imgPath);
-                        if(isShirtClicked && isPantClicked){
-                            sendDB.setEnabled(true);
-                        }
+//                        resultShirts.add(imgPath);
+
                     }
                 });
             }
@@ -389,11 +395,8 @@ public class Closet extends Fragment {
                     public void onClick(View v) {
                         displayPopUp(myBitmap, imgPath);
                         isPantClicked = true;
-                        resultPants.add(imgPath);
+//                        resultPants.add(imgPath);
                         clickedImgs.add((ImageView) v);
-                        if(isShirtClicked && isPantClicked){
-                            sendDB.setEnabled(true);
-                        }
                     }
                 });
             }

@@ -1,5 +1,7 @@
 package com.mobileapp.dressme;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Donate extends Fragment {
 
@@ -40,6 +44,10 @@ public class Donate extends Fragment {
     ArrayList<String> resultShirts = new ArrayList<String>();
     ArrayList<String> resultPants = new ArrayList<String>();
     String result = "";
+    Map<Integer, String> shirt_hm = new HashMap<Integer, String>();
+    Map<Integer, String> pant_hm = new HashMap<Integer, String>();
+    Integer shirtCount = 0;
+    Integer pantCount = 0;
 
     public static Donate newInstance() {
         return new Donate();
@@ -54,56 +62,160 @@ public class Donate extends Fragment {
         popUpView = inflater.inflate(R.layout.donatepopup,null);
 //        View viewPopUp = inflater.inflate(R.layout.donatepopup,container, false);
 //        Button drawBtn = popUpView.findViewById(R.id.popUpDB);
-        Button closetBtn = popUpView.findViewById(R.id.popUpC);
+//        Button closetBtn = popUpView.findViewById(R.id.popUpC);
         Button deleteBtn = popUpView.findViewById(R.id.popUpDelete);
-
-
 
         LinearLayout shirtsLL = view.findViewById(R.id.shirtsLL);
         LinearLayout pantsLL = view.findViewById(R.id.pantsLL);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("donatePref", Context.MODE_PRIVATE);
+//        sharedPreferences.edit().clear().commit();
+        if(sharedPreferences.contains("shirt_count")){
+           shirtCount = sharedPreferences.getInt("shirt_count", -1);
+        }
+        if(sharedPreferences.contains("pant_count")){
+            pantCount = sharedPreferences.getInt("pant_count", -1);
+        }
+
+//        the plus 1 is to account for when there are let's say 2 shirts "shirt1" and "shirt2",
+//        if shirt1 is deleted the +1 will make sure to check if there's anything after it
+//        to display
+        for(int i = 1; i <= shirtCount+1; i++){
+            if(sharedPreferences.contains("shirt" + i)){
+                shirt_hm.put(i, sharedPreferences.getString("shirt" + i, " "));
+                displayShirts(shirtsLL, shirt_hm.get(i));
+            }
+//            else{
+//                shirt_hm.put(i, " ");
+//            }
+        }
+
+        for(int i = 1; i <= pantCount+1; i++){
+            if(sharedPreferences.contains("pant" + i)){
+                pant_hm.put(i, sharedPreferences.getString("pant" + i, " "));
+                displayPants(pantsLL, pant_hm.get(i));
+            }
+//            else{
+//                pant_hm.put(i, " ");
+//            }
+        }
+
+//        for (Map.Entry<Integer, String> entry : shirt_hm.entrySet()) {
+////            System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
+//
+//        }
+
+
+
+
 //        System.out.println("donate");
 
         if(!(DonateArgs.fromBundle(getArguments()).getResult() == null)){
 //            System.out.println("has arg");
             String item = DonateArgs.fromBundle(getArguments()).getResult();
-            System.out.println(item);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            System.out.println(item);
             if(item.contains("Top")){
+                shirtCount++;
+                editor.putInt("shirt_count", shirtCount);
+                editor.commit();
+
+                shirt_hm.put(shirtCount, item);
+
+//                editor = sharedPreferences.edit();
+                for (Map.Entry<Integer, String> entry : shirt_hm.entrySet()) {
+                    String hashKey = "shirt" + entry.getKey();
+                    editor.putString(hashKey, entry.getValue());
+                }
+                editor.commit();
+
                 displayShirts(shirtsLL, item);
             }
             else if (item.contains("Bottom")){
+                pantCount++;
+                pant_hm.put(pantCount, item);
+
+                editor.putInt("pant_count", pantCount);
+                editor.commit();
+
+                for (Map.Entry<Integer, String> entry : pant_hm.entrySet()) {
+                    String hashKey = "pant" + entry.getKey();
+                    editor.putString(hashKey, entry.getValue());
+                }
+                editor.commit();
+
                 displayPants(pantsLL, item);
             }
         }
 
+
+
 //        getCloset(shirtsLL, pantsLL);
-        closetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                System.out.println("click");
-                ImageView img = clickedImgs.get(0);
-                result = (String) img.getTag();
-                img.setVisibility(View.GONE);
-                DonateDirections.ActionDonateToCloset action = DonateDirections.actionDonateToCloset();
-                action.setImageStr(result);
-                Navigation.findNavController(view).navigate(action);
-            }
-        });
+//        closetBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                System.out.println("click");
+//                ImageView img = clickedImgs.get(clickedImgs.size()-1);
+//                result = (String) img.getTag();
+//                img.setVisibility(View.GONE);
+//                DonateDirections.ActionDonateToCloset action = DonateDirections.actionDonateToCloset();
+//                action.setImageStr(result);
+//                Navigation.findNavController(view).navigate(action);
+//            }
+//        });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 ImageView popUpImg = popUpView.findViewById(R.id.popupImg);
 
 //                System.out.println(popUpImg.getTag());
                 //need to set tag of imgs with their filepath or some sort of identifier so i can delete it
                 File deleteFile = new File((String) popUpImg.getTag());
+                if(((String) popUpImg.getTag()).contains("Top")){
+                    int removeKey = 0;
+                    for (Map.Entry<Integer, String> entry : shirt_hm.entrySet()) {
+                        if(entry.getValue() == popUpImg.getTag()){
+                            removeKey = entry.getKey();
+                            break;
+                        }
+                    }
+                    shirt_hm.remove(removeKey);
+                    shirtCount--;
+                    editor.putInt("shirt_count", shirtCount);
+
+                    for (Map.Entry<Integer, String> entry : shirt_hm.entrySet()) {
+                        String hashKey = "shirt" + entry.getKey();
+                        editor.putString(hashKey, entry.getValue());
+                    }
+                    editor.commit();
+                }
+                else if(((String) popUpImg.getTag()).contains("Bottom")){
+                    int removeKey = 0;
+                    for (Map.Entry<Integer, String> entry : pant_hm.entrySet()) {
+                        if(entry.getValue() == popUpImg.getTag()){
+                            removeKey = entry.getKey();
+                            break;
+                        }
+                    }
+                    pant_hm.remove(removeKey);
+                    pantCount--;
+                    editor.putInt("shirt_count", pantCount);
+
+                    for (Map.Entry<Integer, String> entry : pant_hm.entrySet()) {
+                        String hashKey = "pant" + entry.getKey();
+                        editor.putString(hashKey, entry.getValue());
+                    }
+                    editor.commit();
+                }
                 if(deleteFile.exists()){
                     if(deleteFile.delete()){
                         Toast.makeText(getContext(), "Item deleted successfully", Toast.LENGTH_SHORT).show();
 //                        getCloset(shirtsLL, pantsLL);
-                        ImageView img = clickedImgs.get(0);
+                        ImageView img = clickedImgs.get(clickedImgs.size()-1);
                         img.setVisibility(View.GONE);
                         clickedImgs.clear();
+
                     }
                     if(deleteFile.getParentFile().exists()){
                         File parentFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + deleteFile.getParentFile().getName());
