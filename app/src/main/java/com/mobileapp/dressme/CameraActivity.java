@@ -2,9 +2,11 @@ package com.mobileapp.dressme;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.ContentObserver;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Size;
 import android.view.Gravity;
@@ -118,8 +120,6 @@ public class CameraActivity extends AppCompatActivity {
                     RadioGroup radioSeason = popUpView.findViewById(R.id.radioSeason);
 
                     doneBtn.setOnClickListener(new View.OnClickListener() {
-
-
                         public void onClick(View v) {
                             resultFile = "";
                             itemGroupID = radioItems.getCheckedRadioButtonId();
@@ -128,7 +128,7 @@ public class CameraActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(CameraActivity.this, "Please select a clothing item and season", Toast.LENGTH_SHORT).show();
 
-                        }
+                            }
 //
 //                    radioSeason.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //                        @Override
@@ -164,6 +164,7 @@ public class CameraActivity extends AppCompatActivity {
                                 resultFile += season.getText().toString();
                                 capturePhoto();
                                 doneBtn.setEnabled(false);
+                                popupWindow.dismiss();
                             }
 
                         }
@@ -195,6 +196,20 @@ public class CameraActivity extends AppCompatActivity {
 
 
         ContentResolver resolver = getContentResolver();
+
+
+        getContentResolver().registerContentObserver(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true,
+                new ContentObserver(new Handler()) {
+                    @Override
+                    public void onChange(boolean selfChange) {
+//                        Log.d("ScratchService","External Media has been added");
+//                        System.out.println("changes made to media");
+                        super.onChange(selfChange);
+
+                    }
+                }
+        );
+
         imageCapture.takePicture(
                 new ImageCapture.OutputFileOptions.Builder(
                         getContentResolver(),

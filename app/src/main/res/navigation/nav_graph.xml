@@ -37,7 +37,8 @@
     <fragment
         android:id="@+id/donate"
         android:name="com.mobileapp.dressme.Donate"
-        android:label="Donate" >
+        android:label="Donate"
+        tools:layout="@layout/fragment_donate">
         <action
             android:id="@+id/action_donate_to_closet"
             app:destination="@id/closet" />
@@ -57,10 +58,14 @@
             app:destination="@id/scrapbook" />
         <argument
             android:name="shirts"
-            app:argType="string[]" />
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="pants"
-            app:argType="string[]" />
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/homeScreen"

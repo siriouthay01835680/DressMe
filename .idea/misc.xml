@@ -6,9 +6,11 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/help_button.xml" value="0.163" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/popupbg.xml" value="0.1945" />
         <entry key="app/src/main/res/layout/activity_camera.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3026453653971354" />
         <entry key="app/src/main/res/layout/camerapopup.xml" value="0.20774078369140625" />
+        <entry key="app/src/main/res/layout/card_layout.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/clothing_view.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/donatepopup.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/layout/fragment_closet.xml" value="0.28541666666666665" />
