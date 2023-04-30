@@ -8,7 +8,6 @@ Names: Krestina Beshara and Aria Siriouthay
 
 package com.mobileapp.dressme;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -29,11 +28,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     //camera permissions
@@ -66,44 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        String File_Name= "tempImageHolder"; //gives file name
-        String Data="Hello!!"; //define data
-
-        FileOutputStream fileobj = null;
-        try {
-            fileobj = openFileOutput( File_Name, Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        byte[] ByteArray = Data.getBytes(); //Converts into bytes stream
-        try {
-            fileobj.write(ByteArray); //writing to file
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            fileobj.close(); //File closed
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            FileInputStream fileInputStream =  openFileInput("Demo.txt");
-            int read = -1;
-            StringBuffer buffer = new StringBuffer();
-            while((read =fileInputStream.read())!= -1){
-                buffer.append((char)read);
-            }
-            System.out.println(buffer);
-//            Log.d("Code", buffer.toString());
-//            String name = buffer.substring(0,buffer.indexOf(" "));
-//            String pass = buffer.substring(buffer.indexOf(" ")+1);
-//            getname.setText(name);
-//            getpass.setText(pass);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         //setting up navigation toolbar
