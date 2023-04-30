@@ -31,7 +31,6 @@ import java.util.Objects;
 public class Scrapbook extends Fragment {
 
     Map<Integer, String> hm = new HashMap<Integer, String>();
-    CardView cardview;
     String[] shirt;
     String[] pants;
     Map<Integer, RelativeLayout> allLayouts = new HashMap<>();
@@ -40,15 +39,13 @@ public class Scrapbook extends Fragment {
     View view;
     ArrayList<RelativeLayout> clickedView = new ArrayList<RelativeLayout>();
 
-
-
-    public static Scrapbook newInstance() {
-        return new Scrapbook();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        //getting connection to layout and the relative layouts
+        //all ids to relative layouts are in array list
+        //their keys correspond to their layout #
+        //these keys will also correspond to the hashmap.
         view = inflater.inflate(R.layout.fragment_scrapbook, container, false);
         RelativeLayout relativeLayout1 = view.findViewById(R.id.relativeLayout1);
         allLayouts.put(1, relativeLayout1);
@@ -71,29 +68,31 @@ public class Scrapbook extends Fragment {
         RelativeLayout relativeLayout10 = view.findViewById(R.id.relativeLayout10);
         allLayouts.put(10, relativeLayout10);
 
+        //for displaying popup window on click
         popUpView = inflater.inflate(R.layout.donatepopup,null);
         Button deleteBtn = popUpView.findViewById(R.id.popUpDelete);
 
+        //initalizing shared preferences for scrapbook
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("scrapbookPref", Context.MODE_PRIVATE);
 
-
+        //delete button listener for popup
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //delete the most recently clicked view
                 RelativeLayout clearRl = clickedView.get(clickedView.size()-1);
+                //remove all its imageview children
                 clearRl.removeAllViews();
-                if(clearRl.getContext() == null){
-                    System.out.println("null");
-                }
+                //update hashmap to clear the deleted outfit and save to shared pref
                 for(int i = 1; i <= 10; i++){
                     if(allLayouts.get(i) == clearRl){
-//                        System.out.println(allLayouts.get(i));
                         hm.put(i, " ");
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         for (Map.Entry<Integer, String> entry : hm.entrySet()) {
                             String hashKey = String.valueOf(entry.getKey());
                             editor.putString(hashKey, entry.getValue());
                         }
+                        //save changes
                         editor.commit();
                         break;
                     }
@@ -101,11 +100,11 @@ public class Scrapbook extends Fragment {
             }
         });
 
-
-//        sharedPreferences.edit().clear().commit();
-       for(int i = 1; i <= 10; i++){
+        //get all of the values already in shared pref and save them to hashmap
+        for(int i = 1; i <= 10; i++){
            if (sharedPreferences.contains(String.valueOf(i))){
                hm.put(i, sharedPreferences.getString(String.valueOf(i), ""));
+               //display entries in hm that are not currently empty
                if(!Objects.equals(hm.get(i), " ")){
                    displayScrapbook(i);
                }
@@ -115,6 +114,7 @@ public class Scrapbook extends Fragment {
            }
        }
 
+        // add on click listener for all relative layouts for popup
        for(int i = 1; i < allLayouts.size(); i++){
            int finalI = i;
            allLayouts.get(i).setOnClickListener(new View.OnClickListener() {
@@ -126,76 +126,28 @@ public class Scrapbook extends Fragment {
            });
        }
 
-
-        // initalizing map
-//        for (int i = 1; i <= 10; i++) {
-
-//            hm.put(i, " ");
-//        }
-
-//        ArrayList<RelativeLayout> allLayouts = new ArrayList<>();
-//        GridLayout parentLayout = view.findViewById(R.id.gridLayout); // assuming parentLayout is the parent RelativeLayout view
-//        System.out.println("children: " + parentLayout.getChildCount());
-//        for (int i = 0; i < parentLayout.getChildCount(); i++) {
-//            View childView = parentLayout.getChildAt(i);
-//            if (childView instanceof CardView) {
-//                RelativeLayout childLayout = (RelativeLayout) childView;
-//                allLayouts.add(childLayout);
-//            }
-//        }
-//        System.out.println(allLayouts.size());
-
-
-
-//        int foundKey = 0;
-//        // look for first encounter of an empty grid
-//        for (Map.Entry<Integer, String[]> entry : hm.entrySet()) {
-//            if (entry.getValue() == null) {
-////                System.out.println("Encountered empty at key: " + entry.getKey());
-//                foundKey = entry.getKey();
-//                break;
-//            }
-//        }
-
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            hm.forEach((key, value) -> {
-////                System.out.println("Key=" + key + ", Value=" + value);
-//                if(Objects.equals(value, "empty")){
-//                    System.out.println(key);
-//                    return;
-//                }
-//            });
-//        }
-
         String totalStr = "";
         int foundKey = 0;
+        //if args from DB are sent
         if (!(ScrapbookArgs.fromBundle(getArguments()).getDbShirts() == null) && !(ScrapbookArgs.fromBundle(getArguments()).getDbPants() == null)) {
             shirt = ScrapbookArgs.fromBundle(getArguments()).getDbShirts();
             pants = ScrapbookArgs.fromBundle(getArguments()).getDbPants();
-            GridLayout gridLayout = view.findViewById(R.id.gridLayout);
-//            for (int i = 0; i < gridLayout.getChildCount(); i++) {
-//                View childView = gridLayout.getChildAt(i);
-//                if (childView instanceof CardView) {
-//                    CardView cardView = (CardView) childView;
-////                    cardView.setCardBackgroundColor(Color.YELLOW);
-//                    iterateRelativeLayouts(cardView);
-//                }
-//                }
 
             // look for first encounter of an empty grid
             for (Map.Entry<Integer, String> entry : hm.entrySet()) {
                 if (Objects.equals(entry.getValue(), " ")) {
-                System.out.println("Encountered  empty  at key: " + entry.getKey());
                     foundKey = entry.getKey();
                     break;
                 }
             }
+
+            //if an empty layout is found, save the paths to the corresponding hashmap and display
             if(foundKey != 0){
                 totalStr = shirt[0] + " " + pants[0];
                 hm.put(foundKey, totalStr);
                 displayScrapbook(foundKey);
             }
+            //if there are no more empty grids, prompt user.
             else{
                 Toast.makeText(getContext(), "Your Scrapbook is full, try deleting some outfits to clear up space.", Toast.LENGTH_SHORT).show();
             }
@@ -204,45 +156,43 @@ public class Scrapbook extends Fragment {
 
         totalStr = "";
         foundKey = 0;
+        //if args from dress me screen are sent over
         if (!(ScrapbookArgs.fromBundle(getArguments()).getShirt() == null) && !(ScrapbookArgs.fromBundle(getArguments()).getPants() == null)) {
             shirt = ScrapbookArgs.fromBundle(getArguments()).getShirt();
             pants = ScrapbookArgs.fromBundle(getArguments()).getPants();
-//                GridLayout gridLayout = view.findViewById(R.id.gridLayout);
 
             // look for first encounter of an empty grid
             for (Map.Entry<Integer, String> entry : hm.entrySet()) {
                 if (Objects.equals(entry.getValue(), " ")) {
-                System.out.println("Encountered empty at key: " + entry.getKey());
                     foundKey = entry.getKey();
                     break;
                 }
             }
+            //save found empty grid and image paths to hm
             if(foundKey != 0){
                 totalStr = shirt[0] + " " + pants[0];
                 hm.put(foundKey, totalStr);
                 displayScrapbook(foundKey);
             }
+            //prompt user
             else{
                 Toast.makeText(getContext(), "Your Scrapbook is full, try deleting some outfits to clear up space.", Toast.LENGTH_LONG).show();
             }
         }
 
-//        save all changes of hm to shared pref
+        //save all changes of hm to shared pref
         SharedPreferences.Editor editor = sharedPreferences.edit();
         for (Map.Entry<Integer, String> entry : hm.entrySet()) {
             String hashKey = String.valueOf(entry.getKey());
             editor.putString(hashKey, entry.getValue());
         }
+        //save changes
         editor.commit();
-
-        //save map to shared pref to keep imgs & their grids
-
-        //display shirts and bottom to a cardview
-
 
         return view;
     }
 
+    //function to display popups
     private void displayPopup() {
         int width = 1000;
         int height = 1000;
@@ -264,10 +214,15 @@ public class Scrapbook extends Fragment {
         });
     }
 
+    //function to display to scrapbook
     private void displayScrapbook(int foundKey) {
+        //get the layout of the empty view
         RelativeLayout relativeLayout = allLayouts.get(foundKey);
+
+        //separate items into array by delimiter
         String[] items = hm.get(foundKey).split(" ");
 
+        //display the first shirt image from path
         ImageView img = new ImageView(relativeLayout.getContext());
         int id = 700 + foundKey;
         img.setId(id);
@@ -278,79 +233,19 @@ public class Scrapbook extends Fragment {
         img.setRotation(90);
         relativeLayout.addView(img);
 
+        //display the pant image from path
         ImageView img1 = new ImageView(relativeLayout.getContext());
         id = 750 + foundKey;
         img1.setId(id);
         img1.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
         lp = new RelativeLayout.LayoutParams(300, 300);
+
+        //align to right so it will not overlap with the first image
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         img1.setLayoutParams(lp);
         Bitmap myBitmap2 = BitmapFactory.decodeFile(items[1]);
         img1.setImageBitmap(myBitmap2);
         img1.setRotation(90);
         relativeLayout.addView(img1);
-
-
     }
-
-    private void iterateRelativeLayouts (ViewGroup parent){
-            for (int i = 0; i < parent.getChildCount(); i++) {
-                View childView = parent.getChildAt(i);
-                if (childView instanceof RelativeLayout) {
-                    RelativeLayout relativeLayout = (RelativeLayout) childView;
-                    // Do something with the RelativeLayout
-                    // For example, you can iterate through its child views using a nested loop
-                    String tag = (String) relativeLayout.getTag();
-                    Boolean found = false;
-//                if (layout2.getChildCount() == 0) {
-//////            System.out.println("no children");
-//////        }
-                    //tag.contains("empty")
-                    if (relativeLayout.getChildCount() == 0) {
-//                    for (int j = 0; j < shirt.length; j++) {
-                        found = true;
-//                        System.out.println("here in rel");
-                        ImageView img = new ImageView(relativeLayout.getContext());
-                        int id = 700 + i;
-                        img.setId(id);
-//                        img.setLayoutParams(new LinearLayout.LayoutParams(250, 250));
-                        img.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
-//                        img.setLayoutParams(lp1);
-                        //System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + shirt[j]);
-                        Bitmap myBitmap = BitmapFactory.decodeFile(shirt[0]);
-                        img.setImageBitmap(myBitmap);
-                        img.setRotation(90);
-                        relativeLayout.addView(img);
-//                        relativeLayout.setTag("full");
-
-                        ImageView img1 = new ImageView(relativeLayout.getContext());
-                        id = 800 + i;
-                        img1.setId(id);
-                        img1.setLayoutParams(new LinearLayout.LayoutParams(300, 300));
-                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        img1.setLayoutParams(lp);
-                        Bitmap myBitmap2 = BitmapFactory.decodeFile(pants[0]);
-                        img1.setImageBitmap(myBitmap2);
-                        img1.setRotation(90);
-                        relativeLayout.addView(img1);
-                        relativeLayout.setTag("full");
-                        break;
-//                        break;
-//                        i = 20;
-//                        System.out.println((String)relativeLayout.getTag());
-//                        return;
-//                    }
-                    } else {
-                        System.out.println("here, full");
-                    }
-                    if (found) {
-                        break;
-                    } else if (childView instanceof ViewGroup) {
-//                    /System.out
-                        iterateRelativeLayouts((ViewGroup) childView);
-                    }
-                }
-            }
-        }
 }
