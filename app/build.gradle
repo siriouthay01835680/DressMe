@@ -4,19 +4,14 @@ plugins {
 }
 android {
     namespace 'com.mobileapp.dressme'
-//    compileSdk 32
     compileSdk 33
 
-    buildFeatures {
-        viewBinding true
-    }
     defaultConfig {
         applicationId "com.mobileapp.dressme"
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
