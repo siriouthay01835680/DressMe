@@ -36,19 +36,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    //camera permissions
     private static final String[] CAMERA_PERMISSION = new String[]{android.Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
+
+    //boolean for music
     private boolean isPlaying = false;
 
     MaterialToolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //adding music
-
         ImageButton playPauseButton = findViewById(R.id.soundOn);
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
+        //setting up navigation toolbar
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        //checking if camera has permission first before opening
         Button enableCamera = findViewById(R.id.button2);
         enableCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,24 +131,24 @@ public class MainActivity extends AppCompatActivity {
                     enableCamera();
                 } else {
                     requestPermission();
-                    //enableCamera();
                 }
             }
         });
     }
+
+    //function for toolbar options
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    //function to get toolbar permissions
     private boolean hasCameraPermission() {
-        return ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
+    //function to request permissions
     private void requestPermission() {
         ActivityCompat.requestPermissions(
                 this,
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    //function to enable camera
     private void enableCamera() {
         Intent intent = new Intent(this, CameraActivity.class);
         System.out.println("about to start camera activity");
