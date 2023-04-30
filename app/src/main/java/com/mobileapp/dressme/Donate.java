@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Donate extends Fragment {
+
     ArrayList<ImageView> clickedImgs = new ArrayList<>();
     View view;
     View popUpView;

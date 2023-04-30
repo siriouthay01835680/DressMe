@@ -36,7 +36,7 @@ public class DressMe extends Fragment {
 
     ArrayList<String> seasonShirts = new ArrayList<String>();
     ArrayList<String> seasonPants = new ArrayList<String>();
-
+    //creating arrays to hold the shirts and season
 
     public static DressMe newInstance() {
         return new DressMe();
@@ -54,25 +54,29 @@ public class DressMe extends Fragment {
         Button regenerate = view.findViewById(R.id.regenerateBtn);
 //        final String[][] resultItems = new String[1][1];
         Button scrapbookBtn = view.findViewById(R.id.scrapbookBtn);
-
+        //getting access to all the buttons that were created
         //to disable scrapbook & regenerate button if outfit hasn't been generated.
         scrapbookBtn.setEnabled(false);
         regenerate.setEnabled(false);
         generate.setEnabled(false);
 
-
+        //accessing the folders with the stored images
         File allFolders = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
         String[] folders = allFolders.list();
+        //create array for folders
 //        System.out.println(Arrays.toString(folders));
         seasonShirts.clear();
         seasonPants.clear();
+        //make sure it is empty for regeneration
 
         for (int i = 0; i < folders.length; i++) {
             if(folders[i].contains("Top")){
                 shirtNames.add(folders[i]);
+                //folders that contain top should be added to shirt folder
             }
             else if(folders[i].contains("Bottom")){
                 pantNames.add(folders[i]);
+                //folders that contain bottom dhould be added ot bottoms folder
             }
         }
 
@@ -83,25 +87,31 @@ public class DressMe extends Fragment {
         seasonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //set listener to radio buttons to see what the user picks for season
                 boolean canGenerate = false;
                 seasonShirts.clear();
                 seasonPants.clear();
+                //make sure arrays are empty
                 String radioText = "";
                 switch(checkedId) {
                     case R.id.SpringButton:
                         radioText = "Spring";
+                        //if user chooses spring, call the generate function to generate an outfit based on the season
                         canGenerate = canGenerate(radioText);
 //                        System.out.println(canGenerate);
                         if(canGenerate) {
                             generate.setEnabled(true);
+                            //if there are items present in the folders, the generation is possible
                         }
                         else{
+                            //if no items are present in the folder, generate is disabled
                             generate.setEnabled(false);
                         }
 //                        if()
 //                        generate.setEnabled(true);
                         break;
                     case R.id.SummerButton:
+                        //repeat same process done for spring for summer
                         radioText = "Summer";
                         canGenerate = canGenerate(radioText);
                         System.out.println(canGenerate);
@@ -114,6 +124,7 @@ public class DressMe extends Fragment {
 //                        generate.setEnabled(true);
                         break;
                     case R.id.FallButton:
+                        //repeat same process done for spring for fall
                         radioText = "Fall";
                         canGenerate = canGenerate(radioText);
                         if(canGenerate) {
@@ -125,6 +136,7 @@ public class DressMe extends Fragment {
 //                        System.out.println(canGenerate);
                         break;
                     case R.id.WinterButton:
+                        //repeat same process done for spring for winter
                         radioText = "Winter";
                         canGenerate = canGenerate(radioText);
                         if(canGenerate) {
@@ -135,7 +147,7 @@ public class DressMe extends Fragment {
                         }
 //                        System.out.println(canGenerate);
                         break;
-                    default:
+                    default: //default case
                         radioText = "";
                         canGenerate = false;
                         break;
@@ -149,6 +161,7 @@ public class DressMe extends Fragment {
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //when generate is pressed , test that we are in this function
                 System.out.println("here " + seasonShirts);
                 System.out.println("here" + seasonPants);
 //
@@ -160,8 +173,10 @@ public class DressMe extends Fragment {
                 //read from file to pick random shirt/pant
                 //outline for randomizer
                 //for now have array of test img ids
+                //empty out layout
                 layout.removeAllViewsInLayout();
                 resultItems = outfitGeneration(layout, folderNames, shirtNames, pantNames);
+                //call generate function and set scrapbook and regeneration to true so user can recreate or save the outfit
                 isGenerated = true;
                 scrapbookBtn.setEnabled(true);
                 regenerate.setEnabled(true);
@@ -180,6 +195,7 @@ public class DressMe extends Fragment {
                 //for now have array of test img ids
                 layout.removeAllViewsInLayout();
                 resultItems = (outfitGeneration(layout, folderNames, shirtNames, pantNames));
+                //repeat similar process as generate
 //                System.out.println("res: " + resultItems);
 
             }
@@ -188,6 +204,7 @@ public class DressMe extends Fragment {
         scrapbookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //once scrapbook is called, navigate to the scrapbook fragment
                 DressMeDirections.ActionDressMeToScrapbook action = DressMeDirections.actionDressMeToScrapbook();
 //                String[] resArr = new String[resultItems.size()];
 //                resArr = resultItems.toArray(resArr);
@@ -195,11 +212,14 @@ public class DressMe extends Fragment {
                 String [] pant;
                 shirt = new String[]{resultItems.get(0)};
                 pant = new String[]{resultItems.get(1)};
+
 //               System.out.println("items " + Arrays.toString(shirt));
 
                 action.setShirt(shirt);
                 action.setPants(pant);
+                //set the shirt and pant in the array and send it to be saved in scrapbook
                 Navigation.findNavController(view).navigate(action);
+                //send the action
             }
         });
 
@@ -213,9 +233,11 @@ public class DressMe extends Fragment {
     private boolean canGenerate(String radioText) {
         boolean shirtRes = false;
         boolean pantRes = false;
+        //can only generate when there are items in the folder
 //        System.out.println(shirtNames);
 //        System.out.println(pantNames);
 
+        //checks to see if the items are in the folder to return a true or false  if there are items present
         for(int i = 0; i < shirtNames.size(); i++){
 //                    System.out.println(shirtNames.get(i));
             if(shirtNames.get(i).contains(radioText)){
@@ -255,6 +277,7 @@ public class DressMe extends Fragment {
 //        Random pantRand = new Random();
 //        String randShirt = shirtIds[1];
 //        String randPants = pantsIds[0];
+        //generate random shirt and random pants from the the array
         int shirtIndex = (int)(Math.random() * seasonShirts.size());
         int pantIndex = (int)(Math.random() * seasonPants.size());
 //        System.out.println("index " + seasonShirts.get(shirtIndex));
@@ -262,7 +285,7 @@ public class DressMe extends Fragment {
 //        System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex));
 //        System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex));
 
-
+        //get access to the files in the external storage
         File shirtFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonShirts.get(shirtIndex));
         File pantFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + seasonPants.get(pantIndex));
 
@@ -277,15 +300,17 @@ public class DressMe extends Fragment {
         String[] names2 = pantFile.list();
         System.out.println("arr " + Arrays.toString(names1));
         System.out.println("arr " + Arrays.toString(names2));
+        //test to see if it works
         int randShirtIndex = (int)(Math.random() * names1.length);
         int randPantIndex = (int)(Math.random() * names2.length);
+        //generate random shirt and pants from folder
 //        System.out.println(randShirtIndex);
 //        System.out.println(randPantIndex);
 
 //        System.out.println(shirtIndex);
 //        System.out.println(pantIndex);
 
-////        dynamically create new imageview w/ clothing image
+////  dynamically create new imageview w/ clothing image
         ImageView img = new ImageView(layout.getContext());
         int id = 100;
         img.setId(id);
@@ -300,6 +325,7 @@ public class DressMe extends Fragment {
         img.setImageBitmap(myBitmap);
 //        img.setImageDrawable(getResources().getDrawable(resId));
         layout.addView(img);
+        //add the image view to layout to display the outfit generated
         ImageView img1 = new ImageView(layout.getContext());
         id = 101;
         img1.setId(id);
@@ -314,7 +340,7 @@ public class DressMe extends Fragment {
         img1.setImageBitmap(myBitmap1);
 //        img.setImageDrawable(getResources().getDrawable(resId));
         layout.addView(img1);
-
+        //repeat the same process to diisplay the other outfit
 //        ImageView img1 = new ImageView(layout.getContext());
 //        id = 101;
 //        img1.setId(id);
