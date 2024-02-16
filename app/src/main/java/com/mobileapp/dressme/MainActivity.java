@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -77,6 +78,32 @@ public class MainActivity extends AppCompatActivity {
         //bottom nav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.homeScreen:
+                        navController.navigate(R.id.homeScreen);
+                        return true;
+
+                    case R.id.closet:
+                        navController.navigate(R.id.closet);
+                        return true;
+
+                    case R.id.scrapbook:
+                        navController.navigate(R.id.scrapbook);
+                        return true;
+
+                    case R.id.donate:
+                        navController.navigate(R.id.donate);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+           });
 
         //checking if camera has permission first before opening
         Button enableCamera = findViewById(R.id.button2);
